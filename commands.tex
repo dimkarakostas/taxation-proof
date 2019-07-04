@@ -1,0 +1,52 @@
+\newcommand{\mc}{\mathcal}
+
+\newcommand{\secparam}{\kappa}
+\newcommand{\adversary}{\mc{A}}
+\newcommand{\env}{\mc{Z}}
+\newcommand{\party}{\mc{V}}
+\newcommand{\partyset}{\mathbb{V}}
+\newcommand{\ledger}{\mc{L}}
+
+\newcommand{\msg}[2]{%
+\ifthenelse{\isempty{#1}}{\ensuremath{(#2)}}{%
+\ifthenelse{\isempty{#2}}{\ensuremath{(\textsc{#1})}}{%
+\ensuremath{(\textsc{#1}, #2)}}}}
+\newcommand{\eat}[1]{}
+
+\newcommand{\eg}{e.g. }
+\newcommand{\ie}{i.e. }
+\newcommand{\wrt}{w.r.t. }
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\etal}{\textit{et al.}\xspace}
+
+\newcommand{\chain}{C}
+\newcommand{\queryamount}{q}
+\newcommand{\difficulty}{p}
+\newcommand{\persistenceParam}{k}
+\newcommand{\livenessParam}{u}
+\newcommand{\miningpower}{\mu}
+\newcommand{\parties}{n}
+\newcommand{\partiesAdv}{t}
+\newcommand{\emptychain}{\epsilon}
+\newcommand{\chainset}{\mathbb{C}}
+\newcommand{\ruleset}{\mathbb{R}}
+\newcommand{\block}{B}
+\newcommand{\transaction}{\tau}
+\newcommand{\round}{r}
+\newcommand{\networkParam}{\gamma}
+
+\newcommand{\algohash}{\mathsf{H}}
+\newcommand{\algokeygen}{\mathsf{KeyGen}}
+\newcommand{\algoverify}{\mathsf{Verify} }
+\newcommand{\algosign}{\mathsf{Sign}}
+\newcommand{\eufcma}{\ensuremath{\textsf{EUF-CMA}}}
+\newcommand{\sigscheme}{\langle \algokeygen, \algosign, \algoverify \rangle}
+\newcommand{\verifykey}{vk}
+\newcommand{\signkey}{sk}
+
+\algnewcommand\algorithmicswitch{\textbf{switch}}
+\algnewcommand\algorithmiccase{\textbf{case}}
+\algdef{SE}[SWITCH]{Switch}{EndSwitch}[1]{\algorithmicswitch\ #1\ \algorithmicdo}{\algorithmicend\ \algorithmicswitch}%
+\algdef{SE}[CASE]{Case}{EndCase}[1]{\algorithmiccase\ #1}{\algorithmicend\ \algorithmiccase}%
+\algtext*{EndSwitch}%
+\algtext*{EndCase}%
