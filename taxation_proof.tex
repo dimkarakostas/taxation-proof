@@ -1,4 +1,7 @@
 \newif\ifsubmission
+\newif\ifanon
+
+\anontrue
 \submissiontrue
 
 \ifsubmission
@@ -52,9 +55,13 @@
 
 \input{commands}
 
-\title{Secure Deployment of Proof-of-Work Ledgers via Checkpointing}
+\title{A Taxation Proof for Cryptocurrency Exchanges}
 
 \ifsubmission
+\ifanon
+\author{Anonymous}
+\institute{}
+\else
 \author{
     Dimitris Karakostas\inst{1, 2}
     \and Aggelos Kiayias\inst{1, 2}
@@ -64,6 +71,7 @@
     \email{dimitris.karakostas@ed.ac.uk},
     \email{akiayias@inf.ed.ac.uk}
 }
+\fi
 \date{}
 \else
 \author{
