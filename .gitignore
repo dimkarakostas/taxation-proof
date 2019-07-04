@@ -1,0 +1,14 @@
+*.aux
+*.log
+*.bbl
+*.blg
+*.swp
+*.synctex.gz
+.DS_Store
+*.out
+*.toc
+taxation_proof.pdf
+*.pdfsync
+experiments/env
+mf
+*.pyc
