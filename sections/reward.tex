@@ -1,1 +1,69 @@
 \section{A Reward Mechanism to Incentivize User Participation}\label{sec:reward}
+
+\subsection{The Reward Smart Contract}\label{subsec:reward-contract}
+
+The reward smart contract for the user verification is defined in
+Figure~\ref{fig:reward_contract}.
+
+\begin{figure}[h]
+\begin{mdframed}
+
+\begin{center}
+    \textbf{Smart Contract} $\rewardContract$
+\end{center}
+
+    % \vspace{0.3cm}
+    $\rewardContract$ interacts with a set of parties $\partyset$, the exchange
+    $\exchange$, and the taxation party $\taxAuth$, and holds the following:
+    \begin{itemize}[$\cdot$]
+        \item $\reward$: the reward, \ie a deposit in cryptocurrency;
+        \item $\verifykey_\exchange$: the public key of the exchange;
+        \item $L$: a list of commitments to addresses;
+        \item $Y$: the list of public keys used for anonymity;
+        \item $v$: the dispute flag, initially set to $\bot$.
+    \end{itemize}
+
+    \begin{itemize}
+        \item If $v = \bot$:
+            \begin{itemize}
+                \item Upon receiving a message
+                    $\msg{CheckTaxEvasion}{\transcript, \sig}$ from a party
+                    $\party \in \partyset$, where $\transcript = \langle i,
+                    \theta, \lambda, c \rangle$, check:
+                    \begin{enumerate}
+                        \item $\theta \stackrel{?}{=} \lambda \cdot (L[i] \cdot Y[i]^{-1})^c$
+                        \item $\algoverify(\transcript, \sig, \verifykey_\exchange) \stackrel{?}{=} 1$
+                    \end{enumerate}
+                    If either fails then set $v := \party$.
+                \item Upon receiving $\msg{UpdateAddr}{L'}$ from $\exchange$,
+                    set $L := L'$.
+                \item Upon receiving $\msg{UpdateComm}{Y'}$ from $\exchange$,
+                    set $Y := Y'$.
+            \end{itemize}
+
+        \item If $v \neq \bot$, upon receiving a message $\msg{ResolveDispute}{f}$ from
+            $\taxAuth$, where $f \in \{0, 1\}$, if $f = 1$ then transfer
+            $\reward$ to $v$, else set $v := \bot$.
+
+        \item Upon receiving $\msg{PayReward}{\party}$ from $\taxAuth$,
+            transfer $r$ to $\party$.
+    \end{itemize}
+
+\end{mdframed}
+\caption{The Reward Smart Contract}
+\label{fig:reward_contract}
+\end{figure}
+
+Attacks:
+
+\begin{itemize}
+    \item Non-observable evasion:
+        \begin{itemize}
+            \item Collusion between exchange and user
+        \end{itemize}
+    \item Need external intervention by tax authority:
+        \begin{itemize}
+            \item Exchange refuses to sign transcript
+            \item Exchange signs transcript and immediately changes $L, Y$ \comment{solution: time-delayed changes?}
+        \end{itemize}
+\end{itemize}

@@ -1,17 +1,30 @@
+\newcommand{\eat}[1]{}
+\newcommand{\comment}[1]{{\color{red} \{{#1}\}}}
+
 \newcommand{\mc}{\mathcal}
 
 \newcommand{\secparam}{\kappa}
 \newcommand{\adversary}{\mc{A}}
 \newcommand{\env}{\mc{Z}}
+\newcommand{\ledger}{\mc{L}}
+
 \newcommand{\party}{\mc{V}}
 \newcommand{\partyset}{\mathbb{V}}
-\newcommand{\ledger}{\mc{L}}
+\newcommand{\exchange}{\mc{E}}
+\newcommand{\taxAuth}{\mc{T}}
+
+\newcommand{\assets}{\mathsf{Assets}}
+
+\newcommand{\taxationProto}{\mc{P}_{taxAmount}}
+\newcommand{\taxationAddressProto}{\mc{P}_{taxAddress}}
+\newcommand{\rewardContract}{\mc{C}_{Reward}}
+\newcommand{\transcript}{\tau}
+\newcommand{\reward}{r}
 
 \newcommand{\msg}[2]{%
 \ifthenelse{\isempty{#1}}{\ensuremath{(#2)}}{%
 \ifthenelse{\isempty{#2}}{\ensuremath{(\textsc{#1})}}{%
 \ensuremath{(\textsc{#1}, #2)}}}}
-\newcommand{\eat}[1]{}
 
 \newcommand{\eg}{e.g. }
 \newcommand{\ie}{i.e. }
@@ -32,7 +45,6 @@
 \newcommand{\ruleset}{\mathbb{R}}
 \newcommand{\block}{B}
 \newcommand{\transaction}{\tau}
-\newcommand{\round}{r}
 \newcommand{\networkParam}{\gamma}
 
 \newcommand{\algohash}{\mathsf{H}}
@@ -43,6 +55,7 @@
 \newcommand{\sigscheme}{\langle \algokeygen, \algosign, \algoverify \rangle}
 \newcommand{\verifykey}{vk}
 \newcommand{\signkey}{sk}
+\newcommand{\sig}{\sigma}
 
 \algnewcommand\algorithmicswitch{\textbf{switch}}
 \algnewcommand\algorithmiccase{\textbf{case}}

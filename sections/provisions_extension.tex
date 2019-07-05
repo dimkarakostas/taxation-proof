@@ -1,1 +1,71 @@
 \section{Extending Provisions with a Taxation Proof}\label{sec:provisions-extension}
+
+\subsection{The Taxation Authority Protocol}\label{subsec:tax-authority-proto}
+
+The verification protocol which is executed between the taxation authority and the exchange
+is defined in Figure~\ref{fig:taxation_auth_proto}.
+
+\begin{figure}[h]
+\begin{mdframed}
+
+\begin{center}
+    \textbf{Taxation Authority Protocol} $\taxationProto$
+\end{center}
+
+    \begin{itemize}[$\cdot$]
+        \item Public data: $g, h$, and $Z_\assets = \prod_{i = 1}^n p_i$
+        \item Verifier's input from prover: $\assets$
+        \item Prover's input: $v = \sum_{i = 1}^n v_i$
+    \end{itemize}
+
+    \begin{enumerate}
+        \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
+            and sends $\lambda = h^r$ to the verifier ($\taxAuth$).
+        \item The verifier replies with a challenge $c \xleftarrow{\$} \mathbb{Z}_q$.
+        \item The prover responds with $\theta = r + c \cdot v$.
+        \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (Z_\assets \cdot g^{-\assets})^c$.
+    \end{enumerate}
+
+\end{mdframed}
+\caption{The Taxation Authority Protocol for the extended Provisions}
+\label{fig:taxation_auth_proto}
+\end{figure}
+
+\subsection{The User Verification Protocol}\label{subsec:user-verification-proto}
+
+The verification protocol which is executed between the user and the exchange
+is defined in Figure~\ref{fig:taxation_verification_proto}.
+
+\begin{figure}[h]
+\begin{mdframed}
+
+\begin{center}
+    \textbf{Taxation Address Verification Protocol} $\taxationAddressProto$
+\end{center}
+
+    \begin{itemize}[$\cdot$]
+        \item Public data: $h$ and $(y_i, l_i)$ for $i \in [1, n]$
+        \item Prover's input: $t_i$
+    \end{itemize}
+
+    \begin{enumerate}
+        \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
+            and sends $\lambda = h^r$ to the verifier.
+        \item The verifier replies with a challenge $c \xleftarrow{\$} \mathbb{Z}_q$.
+        \item The prover responds with $\theta = r + c \cdot t_i$.
+        \item The verifier accepts if $\exists i \in [1, n]: h^\theta \stackrel{?}{=} \lambda \cdot (l_i \cdot y_i^{-1})^c$.
+    \end{enumerate}
+
+\end{mdframed}
+\caption{The Taxation Address Verification Protocol for the extended Provisions}
+\label{fig:taxation_verification_proto}
+\end{figure}
+
+Attacks:
+
+\begin{itemize}
+    \item Need external intervention by tax authority:
+        \begin{itemize}
+            \item Exchange refuses to run protocol
+        \end{itemize}
+\end{itemize}
