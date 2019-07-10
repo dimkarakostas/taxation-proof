@@ -1,1 +1,14 @@
 \section{Conclusion}\label{sec:conclusion}
+
+Potential attacks that are not solved by our scheme:
+\begin{itemize}
+    \item exchange refuses to run address verification protocol
+    \item exchange refuses to sign protocol transcript
+    \item exchange signs transcript and immediately changes $L, Y$ \comment{solution: time-delayed changes?}
+\end{itemize}
+
+Usability problems:
+\begin{itemize}
+    \item smart contract requires intervention by taxation authority
+    \item smart contract locks while tax authority is investigating, does not allow/reward multiple violation submissions
+\end{itemize}

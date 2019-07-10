@@ -1,4 +1,33 @@
-\section{Incentivizing User Participation}\label{sec:reward}
+\section{Incentivizing User Participation}\label{sec:incentives}
+
+In Section~\ref{sec:provisions-extension} we presented a mechanism that allows
+the taxation authority to identify a tax evasion by an exchange. A core
+assumption of our scheme is that the exchange's users actively participate in
+the address verification protocol $\taxationAddressProto$ and, in case of
+discrepancies from the exchange, formally complain to the taxation authority.
+However, it is possible that users do not care about the taxation of the
+exchange or don't want to spend the time and effort required by
+$\taxationAddressProto$. Therefore, it is important to consider incentives,
+such that users participate in the protocol and are rewarded for their effort.
+
+\subsection{Desiderata of the Incentive Mechanism}\label{subsec:incentive-desiderata}
+
+The incentive mechanism should offer the following properties:
+
+\begin{itemize}
+    \item \textbf{Minimum trust to authority}: the mechanism should assume a
+        minimum level of trust to and need for intervention from the taxation
+        authority $\taxAuth$
+    \item \textbf{Small deposit}: the mechanism should not require a large
+        amount of assets to be deposited and locked by the exchange
+    \item \textbf{Automated rewards}: as user should be automatically
+        rewarded if they \emph{provably} identify a tax evasion
+    \item \textbf{Integrity}: every user who can prove a tax evasion should be
+        rewarded
+    \item \textbf{Validity}: if a user forges a tax evasion statement they
+        should not be rewarded (equiv. the exchange should not be penalized
+        unless it has participated in tax evasion)
+\end{itemize}
 
 \subsection{The Reward Smart Contract}\label{subsec:reward-contract}
 
