@@ -1,0 +1,42 @@
+\subsection{Provisions' Proof of Assets}\label{subsec:provisions-assets-proof}
+
+Figure~\ref{fig:provisions_assets_proto} defines the proof of assets of Provisions.
+
+\begin{figure}[h]
+\begin{mdframed}
+        Public data from blockchain: $(y_i, b_i)$ for $i \in [1, n]$ and $g, h$
+
+        Verifier's input from prover: $(p_i, l_i)$ for $i \in [1, n]$
+
+        Prover's input: $s_i \in \{0, 1\}, v_i,t_i,\hat{x}_i \in \mathbb{Z}_q$ for $i \in [1, n]$
+
+    Protocol:
+    \begin{enumerate}
+        \item For $i \in [1, n]$:
+            \begin{enumerate}
+                \item Prover ($\exchange$) chooses $v_i^{(1)}, v_i^{(2)}, v_i^{(3)}, v_i^{(4)} \xleftarrow{\$} \mathbb{Z}_q$.
+                \item The prover sends to the verifier:
+                    \begin{align}
+                        \alpha_i^{(1)} = b_i^{v_i^{(1)}}h^{v_i^{(2)}}, \alpha_i^{(2)} = y_i^{v_i^{(1)}}h^{v_i^{(3)}}, \alpha_i^{(3)} = g^{v_i^{(4)}}h^{v_i^{(3)}} \nonumber
+                    \end{align}
+                \item The verifier replies with a challenge $c_i \xleftarrow{\$} \mathbb{Z}_q$
+                \item Prover ($\exchange$) replies with:
+                    \begin{align}
+                        r_{s_i} = v_i^{(1)} + c_i \cdot s_i \text{\quad (response for $s_i$)} \nonumber \\
+                        r_{v_i} = v_i^{(2)} + c_i \cdot v_i \text{\quad (response for $v_i$)} \nonumber \\
+                        r_{t_i} = v_i^{(3)} + c_i \cdot t_i \text{\quad (response for $t_i$)} \nonumber \\
+                        r_{\hat{x}_i} = v_i^{(4)} + c_i \cdot \hat{x}_i \text{\quad (response for $\hat{x}_i$)} \nonumber
+                    \end{align}
+                \item The verifier accepts if:
+                    \begin{align}
+                        b_i^{r_{s_i}}h^{r_{v_i}} \stackrel{?}{=} p_i^{c_i}\alpha_i^{(1)} \nonumber \\
+                        y_i^{r_{s_i}}h^{r_{t_i}} \stackrel{?}{=} l_i^{c_i}\alpha_i^{(2)} \nonumber \\
+                        g^{r_{\hat{x}_i}}h^{r_{t_i}} \stackrel{?}{=} l_i^{c_i}\alpha_i^{(3)} \nonumber
+                    \end{align}
+            \end{enumerate}
+    \end{enumerate}
+
+\end{mdframed}
+\caption{Provisions' Proof of Assets Protocol}
+\label{fig:provisions_assets_proto}
+\end{figure}

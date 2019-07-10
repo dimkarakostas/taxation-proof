@@ -93,20 +93,23 @@
 \fi
 
 \input{sections/introduction}
-\input{sections/preliminaries}
 \input{sections/related}
 \input{sections/taxation}
 \input{sections/provisions_extension}
 \input{sections/reward}
+\input{sections/implementation}
 \input{sections/future}
 
 \ifsubmission
+\def\doi#1{\url{https://doi.org/#1}}
 \bibliographystyle{splncs04}
 \else
 \bibliographystyle{plain}
 \fi
-\bibliography{bibliography/additional}
+\bibliography{bibliography/additional,bibliography/cryptobib/crypto}
 
 \appendix
+\input{sections/preliminaries}
+\input{sections/provisions}
 
 \end{document}

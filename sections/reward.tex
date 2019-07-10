@@ -1,4 +1,4 @@
-\section{A Reward Mechanism to Incentivize User Participation}\label{sec:reward}
+\section{Incentivizing User Participation}\label{sec:reward}
 
 \subsection{The Reward Smart Contract}\label{subsec:reward-contract}
 
@@ -50,20 +50,10 @@ Figure~\ref{fig:reward_contract}.
     \end{itemize}
 
 \end{mdframed}
-\caption{The Reward Smart Contract}
+\caption{
+    The Taxation Reward smart contract, which incentivizes users to complete the
+    address verification protocol $\taxationAddressProto$ and ensure that the
+    exchange properly registers its assets for taxation purposes.
+}
 \label{fig:reward_contract}
 \end{figure}
-
-Attacks:
-
-\begin{itemize}
-    \item Non-observable evasion:
-        \begin{itemize}
-            \item Collusion between exchange and user
-        \end{itemize}
-    \item Need external intervention by tax authority:
-        \begin{itemize}
-            \item Exchange refuses to sign transcript
-            \item Exchange signs transcript and immediately changes $L, Y$ \comment{solution: time-delayed changes?}
-        \end{itemize}
-\end{itemize}
