@@ -1,10 +1,64 @@
 \section{The Taxation Mechanism}\label{sec:taxation}
 
-\subsection{The Properties of a Taxation mechanism}\label{subsec:taxation-properties}
-
 Conjectures:
 \begin{itemize}
-    \item It is impossible to achieve taxation properties without user participation
     \item It is impossible to achieve taxation properties without proof of solvency
-    \item It is impossible to achieve taxation properties if collusion between exchange and user
 \end{itemize}
+
+\subsection{The Properties of a Taxation mechanism}\label{subsec:taxation-properties}
+
+\begin{proposition}\label{prop:tax-proof-impossibility}
+    It is impossible to prove tax evasion to a third party without cooperation
+    from the (malicious) exchange.
+\end{proposition}
+\begin{proof}
+    We will describe two scenarios, where
+    \begin{inparaenum}
+        \item the exchange tax evades and
+        \item the user lies
+    \end{inparaenum}
+    and show that they are indistinguishable.
+
+    Scenario $1$ (malicious exchange $\exchange$, honest user $\user$):
+    \begin{enumerate}
+        \item $\user$ gives to $\exchange$ an address $d$ and requests a
+            withdrawal of $\theta$ assets
+        \item $\exchange$ publishes the transaction $tx = \langle s, d, \theta
+            \rangle$, where $s$ is an address which is not taxed, \ie is a tax
+            evasion address.
+    \end{enumerate}
+
+    Scenario $2$ (honest exchange $\exchange$, malicious user $\user$):
+    \begin{enumerate}
+        \item $\user$ controls some address $s$, which holds $\theta$ assets
+        \item $\user$ creates a new address $d$ and publishes a transaction
+            $tx = \langle s, d, \theta \rangle$
+    \end{enumerate}
+
+    Due to Bitcoin's pseudonymity, there is no connection between an address
+    and the physical entity which owns it, \ie $\exchange$ and $\user$ in our
+    case. Therefore, given only the transaction $tx$, scenarios $1$ and $2$ are
+    indistinguishable.
+\end{proof}
+
+Proposition~\ref{prop:tax-proof-impossibility} shows that, without cooperation
+from the exchange, it is impossible to prove that a tax evasion has occurred.
+However, it is safe to assume that a tax-evading exchange would not cooperate
+anyway in proving its tax evasion, in other words self-incrimination.
+
+Still, a user can identify the tax evasion, although not being able to prove it
+to a third party. For instance, in the Scenario $1$ above, a user can request a
+proof that the assets which originate from address $s$ are properly taxed. In
+case of tax evasion, then it should be impossible to produce such proof,
+therefore the exchange would simply refuse to respond. Thus, the exchange's
+refusal to reply is an admission of guilt.
+
+We can now use this observation to describe a setting where the exchange admits
+tax evasion to the tax authority itself. First, the user is allowed to ask for
+taxation proof \emph{after} the withdrawal has occurred, \ie after the exchange
+has committed to owning the address $s$. Second, the exchange does not know
+whether the user will request a taxation proof, \ie cannot a priori choose
+whether to use a tax evading address or not. Therefore, the tax authority can
+impersonate a user of the exchange and, after properly completing a withdrawal,
+request a proof. Now, if the exchange used a tax evading address it will have
+admitted tax evasion to the authority itself.

@@ -24,15 +24,70 @@ The incentive mechanism should offer the following properties:
         rewarded if they \emph{provably} identify a tax evasion
     \item \textbf{Integrity}: every user who can prove a tax evasion should be
         rewarded
-    \item \textbf{Validity}: if a user forges a tax evasion statement they
-        should not be rewarded (equiv. the exchange should not be penalized
+    \item \textbf{Validity}: a user should should not be rewarded for a false
+        tax evasion complaint (equiv. the exchange should not be penalized
         unless it has participated in tax evasion)
 \end{itemize}
 
+Challenge:
+    The exchange might refuse to run protocol.
+Argument:
+    The exchange performs the transaction and \emph{after} that the user
+    requests for taxation verification. The exchange cannot know a priori which
+    user will ask for proof and does not know if the user works with/for the
+    taxation authority.
+
+\subsection{Automated Reward Impossibility}
+
+Conjecture:
+    If the verifier (\ie the user) is not honest, the protocol
+    $\taxationAddressProto$ is not sufficient to construct an automated reward
+    mechanism that satisfies validity.
+
+Argument:
+    $\taxationAddressProto$ is interactive, so its transcript is not sufficient
+    to prove that the user is not lying (specifically, the user can pick $s, c$
+    at random and set $\lambda = g^\theta y^{-c}$) \comment{would a NIZK suffice?}
+
+Proposition:
+    The exchange supplies the user with $t_i$.
+
+Problems:
+    $y_i$ at some point, \ie the exchange undeniably deanonymizes the address
+    $y_i$.
+
+Proposition:
+    Assume a contract $S$ which solves the disputes. The user challenges the
+    exchange for some address $y_i$. The exchange
+
 \subsection{The Reward Smart Contract}\label{subsec:reward-contract}
 
-The reward smart contract for the user verification is defined in
-Figure~\ref{fig:reward_contract}.
+We now present a smart contract definition that covers the desiderata defined
+above. The core idea is that the smart contract will verify the transcript of
+$\taxationAddressProto$ which was performed between the user and the exchange
+and, in case the exchange did not behave properly, will reward the user who
+submits the request.
+
+First, the contract receives a deposit $\reward$. For instance, if the smart
+contract is deployed on Ethereum, the deposit takes the form of $\reward$
+Ether. The deposit should be large enough, in order to incentivize a user to
+follow the protocol, but also small enough such that the overall mechanism is
+cost-effective for the exchange. The exact deposit amount depends on the
+application details and the game theoretic assumptions on the user behavior,
+which are outside the scope of this paper and will be explored in future work.
+
+In order for the \emph{validity} desideratum to hold, it is necessary that the
+contract is able to identify whether the exchange participated in the protocol
+execution defined in the transcript. Therefore, we need a mechanism to
+automatically detect whether a user submits a forged transcript, which does not
+correspond to a correct interaction with the exchange. We solve this problem by
+requiring that the exchange signs the transcript of $\taxationAddressProto$ and
+provides the signature to the user. Therefore, the contract is parameterized,
+upon instantiation, by the public key of the exchange, in order to verify the
+signatures submitted by the user.
+
+The reward smart contract for the user verification of the exchange's addresses
+is defined in Figure~\ref{fig:reward_contract}.
 
 \begin{figure}[h]
 \begin{mdframed}
