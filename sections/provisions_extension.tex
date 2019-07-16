@@ -110,13 +110,14 @@ protocol~\cite{C:Schnorr89} defined in Figure~\ref{fig:taxation_auth_proto}.
 \label{fig:taxation_auth_proto}
 \end{figure}
 
-\begin{theorem}
+\begin{theorem}\label{thm:tax-auth-proto}
     For public values $g, h, Z_\assets = \prod_{i = 1}^n p_i$ for $i \in [1,
     n]$, the protocol $\taxationProto$ is an honest-verifier zero-knowledge
     argument of knowledge of quantity $v$ satisfying condition (\ref{eq:assets}).
 \end{theorem}
 \begin{proof}
-    The proof follows directly from the properties of Schnorr's protocol. \qed
+    The proof follows directly from the properties of the Schnorr protocol.
+    \qed
 \end{proof}
 
 \subsection{The User Verification Protocol}\label{subsec:user-verification-proto}
@@ -177,5 +178,6 @@ the Schnorr protocol defined in Figure~\ref{fig:taxation_verification_proto}.
     knowledge of quantity $t_i$ satisfying condition (\ref{eq:owned-address-commit}).
 \end{theorem}
 \begin{proof}
-    Again the proof follows from the Schnorr protocol's properties. \qed
+    As with Theorem~\ref{thm:tax-auth-proto}, the proof follows from the
+    properties of the Schnorr protocol. \qed
 \end{proof}
