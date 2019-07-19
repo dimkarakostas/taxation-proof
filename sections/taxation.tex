@@ -6,14 +6,16 @@ taxation mechanism.
 \paragraph{Properties.}
 
 In every cryptocurrency system, a user, \eg an exchange $\exchange$, manages
-their assets via \emph{addresses}. Every address is associated with a key pair
-$\keypair$, such that the private key $\signkey$ is used to claim ownership of
-the assets, \eg by signing special messages. Assuming $[\address_1, \dots,
-\address_n]$ is the list of all addresses that $\exchange$ controls, the total
-amount of assets that it owns is $\assets = \sum_{i=1}^n
-\text{bal}(\address_i)$, where $\text{bal}(\address)$ is the amount of assets
-controlled by the address $\address$; the balance of every address is publicly
-available on the blockchain.
+their assets via \emph{addresses}. Every address $\address$ is associated with
+a key pair $\keypair$, such that the private key $\signkey$ is used to claim
+ownership of the assets, \eg by signing special messages; in Bitcoin, as well
+as most cryptocurrency systems, $\address = \mathsf{H}(\signkey)$ for some hash
+function $\mathsf{H}$.  Assuming $[\address_1, \dots, \address_n]$ is the list
+of all addresses that $\exchange$ controls, the total amount of assets that it
+owns is $\assets = \sum_{i=1}^n \text{bal}(\address_i)$, where
+$\text{bal}(\address)$ is the amount of assets controlled by the address
+$\address$; the balance of every address is publicly available on the
+blockchain.
 
 The minimum requirement for a taxation mechanism for cryptocurrency is that the
 exchange $\exchange$ declares its assets to the taxation authority $\taxAuth$.
