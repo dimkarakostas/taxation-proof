@@ -10,15 +10,16 @@ their assets via \emph{addresses}. Every address is associated with a key pair
 $\keypair$, such that the private key $\signkey$ is used to claim ownership of
 the assets, \eg by signing special messages. Assuming $[\address_1, \dots,
 \address_n]$ is the list of all addresses that $\exchange$ controls, the total
-amount of assets that it owns is $\Theta = \sum_{i=1}^n bal(\address_i)$, where
-$bal(\address)$ is the amount of assets controlled by the address $\address$;
-the balance of every address is publicly available on the blockchain.
+amount of assets that it owns is $\assets = \sum_{i=1}^n
+\text{bal}(\address_i)$, where $\text{bal}(\address)$ is the amount of assets
+controlled by the address $\address$; the balance of every address is publicly
+available on the blockchain.
 
 The minimum requirement for a taxation mechanism for cryptocurrency is that the
 exchange $\exchange$ declares its assets to the taxation authority $\taxAuth$.
 Our goal is to design a mechanism that enables taxation, while retaining as
 much privacy as possible. Ideally, the only information that is leaked to
-$\taxAuth$ should be $\Theta$, while ensuring a provably correct declaration.
+$\taxAuth$ should be $\assets$, while ensuring a provably correct declaration.
 In other words, without revealing the address, the exchange should be able to
 provide a zero-knowledge proof of knowledge of the private key for every
 address for which it claims ownership.
