@@ -3,108 +3,60 @@
 In this section we explore the necessary properties and core limitations of a
 taxation mechanism.
 
-\paragraph{Desiderata.}\label{subsec:taxation-desiderata}
+\paragraph{Limitations.}
 
-\begin{itemize}
-    \item \textbf{Privacy of Assets Under Management}: the total amount of assets
-        that the exchange manages should not be leaked to any party, except the
-        taxation authority $\taxAuth$.
-    \item \textbf{Address Privacy}: the ownership of an address $\address$ that
-        the exchange controls should not be leaked to any party except a
-        user who receives assets from $\address$.
-    \item \textbf{Tax Evasion Identification}: $\taxAuth$ should be able to
-        acquire proof of tax evasion, \ie whether the exchange declares to
-        $\taxAuth$ less assets than it controls.
-    \item \textbf{Provable Address Taxation}\comment{is this necessary?}: the
-        exchange should be able to prove the taxation of one of its addresses
-        to any party without leaking any additional information (except the
-        address itself).
-\end{itemize}
-
-\paragraph{Impossibilities of a Taxation Mechanism.}\label{subsec:taxation-properties}
-
-Having established the minimal requirements that we need from a taxation
-mechanism, we now explore what is actually achievable. Therefore, we describe
-the following impossibility results, which will help establish a basis of
-discussion.
-
-\begin{proposition}\label{prop:tax-identification-impossibility}
-    It is impossible to identify tax evasion, unless the exchange reveals or
-    uses an address which controls some undeclared assets.
-\end{proposition}
-
-It is easy to show that Proposition~\ref{prop:tax-identification-impossibility}
-holds. Specifically, consider an exchange $\exchange$ which creates a secret
-address $\address$ and sends some assets $\theta$ to it. Next, as long as the
-exchange does not reveal or use $\address$ in any way, it is impossible for
-another party to identify or prove that $\exchange$ owns $\address$ and,
+Assume that an exchange $\exchange$ tax evades, \ie creates a secret,
+undeclared address $\address$ and sends some assets $\theta$ to it. As long as
+the keeps the address hidden, \ie does not use it, it is impossible for any
+party to any party to identify or prove that $\exchange$ owns $\address$ and,
 consequently, $\theta$.
 
-\begin{proposition}\label{prop:tax-proof-impossibility}
-    It is impossible to prove tax evasion to a third party using only a
-    transaction.
-\end{proposition}
-We will describe two scenarios, where
+Now assume that, at some future point, the exchange issues a transaction $\tau$
+which sends $\theta$ assets from $\address$ to a party $\user$, \eg when
+$\user$ requests a withdrawal from the exchange. If $\user$ suspects that the
+exchange evaded taxation for the $\theta$ assets, they might want to report the
+exchange to the taxation authority $\taxAuth$ for inspection, \ie they form a
+complaint that $\exchange$ owns $\address$ and tax evades via it.
+
+When $\taxAuth$ receives the user's complaint, it faces a problem. Even if
+$\taxAuth$ has proof that $\exchange$ did not declare $\address$ for taxation,
+it further needs proof that $\address$ is controlled by the exchange, \ie proof
+that the exchange knows the private key that pertains to $\address$. The reason
+is that it cannot know if the $\user$ is lying, \ie if $\address$ is not
+controlled by $\exchange$ but by $\user$ themselves. In other words, $\taxAuth$
+needs to distinguish between two scenarios:
 \begin{inparaenum}[i)]
-    \item the exchange tax evades and
-    \item the user lies,
+    \item $\exchange$ controls $\address$ and tax evades, or
+    \item $\user$ is lying about $\exchange$ owning $\address$.
 \end{inparaenum}
-and will show that they are indistinguishable.
 
-Scenario $1$ (malicious exchange $\exchange$, honest user $\user$):
-\begin{enumerate}
-    \item $\user$ gives to $\exchange$ an address $d$ and requests a
-        withdrawal of $\theta$ assets
-    \item $\exchange$ publishes the transaction $tx = \langle s, d, \theta
-        \rangle$, where $s$ is a private address of the exchange, \ie is
-        not taxed.
-\end{enumerate}
-
-Scenario $2$ (honest exchange $\exchange$, malicious user $\user$):
-\begin{enumerate}
-    \item $\user$ controls some address $s$, which holds $\theta$ assets
-    \item $\user$ creates a new address $d$ and publishes a transaction
-        $tx = \langle s, d, \theta \rangle$
-\end{enumerate}
-
-Due to Bitcoin's pseudonymity, there is no connection between an address
-and the physical entity which owns it, \ie $\exchange$ or $\user$ in our
-case. Therefore, given only transaction $tx$, the scenarios $1$ and $2$ are
-indistinguishable.
-
-Proposition~\ref{prop:tax-proof-impossibility} thus shows that, without
-cooperation from the exchange, it is impossible to prove that a tax evasion has
-occurred. However, assuming help from the exchange is equivalent to asking
-from a malicious exchange to incriminate itself; it is safe to assume that it
-would not participate in such actions.
-
-Still, the tax evasion is identifiable, due to the exchange's refusal for
-cooperation. For instance, in the Scenario $1$ above, a user can request a
-proof that assets originating from address $s$ are properly taxed. If the
-exchange refuses to reply, it is safe to assume that this address is used for
-tax evasion, since the exchange has no incentive for not providing such proof.
+Observe that, in the first scenario, $\user$ does know that $\address$ is
+controlled by $\exchange$. However, due to the pseudonymity of Bitcoin, the
+transaction $\tau$ is not sufficient to prove this fact. Instead, $\user$
+needs a proof which can only be supplied by the exchange, \eg a signature from
+the exchange's public key which acknowledges $\tau$ or $\address$. However, if
+$\exchange$ does tax evade via $\address$, it is unreasonable to assume that it
+would create such proof, which would effectively incriminate itself.
 
 \paragraph{Design.}
 
-In order to design a taxation mechanism we keep in mind that, in case an
-exchange $\exchange$ evades taxation for some address, the taxation authority
-identifies the evasion. In order to achieve this, we utilize the fact that tax
-evasion is identifiable, as described above.
+In designing our taxation mechanism we keep in mind that, in case an exchange
+$\exchange$ evades taxation for some address $\address$, a user who receives
+some assets from $\address$ should be able to identify the evasion.  We ensure
+this by enabling every user to request a taxation proof \emph{after} the
+transaction has been issued, \ie after $\exchange$ has committed to owning an
+address $\address$. If $\exchange$ fails to provide such proof, then the user
+can safely assume that $\exchange$ evaded taxation via $\address$.
 
-First, we require that a user is allowed to request taxation proof \emph{after}
-the withdrawal has occurred, \ie after $\exchange$ has committed to owning the
-address $s$. Following Proposition~\ref{prop:tax-identification-impossibility},
-the identification occurs when $\exchange$ uses a tax evading address to send
-some funds to a user, \ie upon a withdrawal by the user. Given
-Proposition~\ref{prop:tax-proof-impossibility}, the user who performs the
-withdrawal should be the tax authority $\taxAuth$ itself.
+Due to the limitations described above, it is not sufficient that any user
+identifies the evasion, instead the taxation authority $\taxAuth$ itself should
+observe it. Therefore, we also require that $\exchange$ does not know whether
+the user will request a taxation proof after the transaction is issued. This is
+important since, if $\exchange$ knows a priori that a user will request a
+taxation proof, it will instead use a legitimate address, \ie an address which
+is declared for taxation.
 
-Second, $\exchange$ should not know whether the user will request a taxation
-proof. Naturally this is necessary since, if $\exchange$ knows a priori that a
-user would request a taxation proof, it would use properly taxed addresses.
-
-Given the above requirements, $\taxAuth$ can covertly become a user of the
-exchange, perform a withdrawal, and then request a taxation proof. If the
-exchange uses a tax evading address for this withdrawal then it will not be
-able to provide a valid taxation proof, hence it will have admitted tax evasion
-to the authority itself.
+Now, we assume that $\taxAuth$ covertly becomes a user of the exchange and,
+upon performing a withdrawal, requests a taxation proof. If, for this specific
+transaction, the exchange uses a tax evading address, $\taxAuth$ will identify
+the tax evasion.
