@@ -1,7 +1,21 @@
 \section{Conclusion}\label{sec:conclusion}
 
-Potential attacks that are not solved by our scheme:
-\begin{itemize}
-    \item user cannot prove that exchange refused to run address verification protocol
-    \item user has no incentive to run address verification protocol
-\end{itemize}
+The current paper focuses on the issue of mainstream adoption of decentralized
+blockchain assets, specifically tackling the problem of taxation of
+crypto-assets. After identifying the requirements, as well as the inherent
+limitations, of such mechanisms, we construct a scheme building on the
+well-known Provisions mechanism for the auditing of the solvency of
+crypto-exchanges.
+
+Our mechanism, although enabling a user to identify whether the assets they
+receive from an exchange have been properly taxed, is constrained in a number
+of ways. First, as described in Section~\ref{subsec:tax-design}, our mechanism
+is more effective as more users utilize it. However, our design lacks
+incentives which would motivate a user to use it. Second, although proving the
+tax evasion to a third party in the standard setting is impossible (cf.
+Section~\ref{subsec:tax-limitations}), perhaps stronger assumptions could lead
+to more optimistic results. For instance, if every exchange was require to use
+specially-crafted addresses, then it could be possible that a user who
+identifies a tax evasion incident be able to report it (including a proof) to
+the authority. Future work will explore such designs, as well as all privacy
+implications.

@@ -3,7 +3,7 @@
 In this section we explore the necessary properties and core limitations of a
 taxation mechanism.
 
-\paragraph{Properties.}
+\subsection{Properties}\label{subsec:tax-properties}
 
 In every cryptocurrency system, a user, \eg an exchange $\exchange$, manages
 their assets via \emph{addresses}. Every address $\address$ is associated with
@@ -26,7 +26,7 @@ In other words, without revealing the address, the exchange should be able to
 provide a zero-knowledge proof of knowledge of the private key for every
 address for which it claims ownership.
 
-\paragraph{Limitations.}
+\subsection{Limitations}\label{subsec:tax-limitations}
 
 Assume that an exchange $\exchange$ tax evades, \ie creates a secret,
 undeclared address $\address$ and sends some assets $\theta$ to it. As long as
@@ -61,7 +61,7 @@ the exchange's public key which acknowledges $\tau$ or $\address$. However, if
 $\exchange$ does tax evade via $\address$, it is unreasonable to assume that it
 would create such proof, which would effectively incriminate itself.
 
-\paragraph{Design.}
+\subsection{Design}\label{subsec:tax-design}
 
 In designing our taxation mechanism we keep in mind that, in case an exchange
 $\exchange$ evades taxation for some address $\address$, a user who receives
