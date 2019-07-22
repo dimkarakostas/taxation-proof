@@ -111,17 +111,15 @@ Figure~\ref{fig:taxation_auth_proto}.
 \label{fig:taxation_auth_proto}
 \end{figure}
 
-The required privacy guarantees are ensured by Theorem~\ref{thm:tax-auth-proto}.
+The required privacy guarantees are ensured by
+Theorem~\ref{thm:tax-auth-proto}, which can be easily proven given the
+properties of the Schnorr protocol.
 
 \begin{theorem}\label{thm:tax-auth-proto}
     For public values $g, h, Z_\assets = \prod_{i = 1}^n p_i$ for $i \in [1,
     n]$, the protocol $\taxationProto$ is an honest-verifier zero-knowledge
     argument of knowledge of quantity $v$ satisfying condition (\ref{eq:assets}).
 \end{theorem}
-\begin{proof}
-    The proof follows directly from the properties of the Schnorr protocol.
-    \qed
-\end{proof}
 
 \subsection{The Address Verification Protocol}\label{subsec:user-verification-proto}
 
@@ -179,17 +177,14 @@ the Schnorr protocol defined in Figure~\ref{fig:taxation_verification_proto}.
 \end{figure}
 
 Similarly to the previous section, the necessary level of privacy is defined by
-Theorem~\ref{thm:tax-auth-proto}.
+Theorem~\ref{thm:tax-auth-proto}, due to the security properties of the Schnorr
+protocol.
 
 \begin{theorem}
     For public values $h$ and $(y_i, l_i)$, the protocol
     $\taxationAddressProto$ is an honest-verifier zero-knowledge argument of
     knowledge of quantity $t_i$ satisfying condition (\ref{eq:owned-address-commit}).
 \end{theorem}
-\begin{proof}
-    As with Theorem~\ref{thm:tax-auth-proto}, the proof follows from the
-    properties of the Schnorr protocol. \qed
-\end{proof}
 
 Finally, we note that both $\taxationProto$ and $\taxationAddressProto$ can be
 turned into non-interactive zero-knowledge (NIZK) proofs of knowledge using the
