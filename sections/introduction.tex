@@ -51,17 +51,17 @@ for the exchanges and their users, as well as minimize the level of trust that
 needs to be assumed of the taxation authority. Therefore, we next establishing
 the core limitations of every such taxation mechanism.
 
-The major contribution of our paper is a taxation design, which is based on
-Provisions~\cite{CCS:DBBCB15}, a proof of solvency mechanism for Bitcoin
-exchanges. Our mechanism is an extension for Provisions and utilizes well-known
-cryptographic primitives, specifically Schnorr's protocol for proof of
-knowledge, in order to allow exchanges to declare the assets that they manage,
-without the need to disclose any additional information. More importantly, we
-describe how a taxation authority can use our scheme in order to identify
-whether an exchange fails to declare some or all of its assets.
-
-Finally, we extend the Provisions
-implementation\footnote{\url{https://github.com/bbuenz/provisions}} with our
-taxation mechanism.  Our benchmarks show that the extension is lightweight,
-especially compared to the other pieces of Provisions, and thus is suitable for
-widespread usage by existing exchanges.\comment{add numbers}
+Second, our paper introduces a taxation design, which is based on
+Provisions~\cite{CCS:DBBCB15}. Provisions is a proof of solvency mechanism for
+Bitcoin exchanges, which we extend by utilizing well-known cryptographic
+primitives, specifically Schnorr's protocol for proof of knowledge. Our scheme
+allows exchanges to declare the assets that they manage, without the need to
+disclose any additional information. More importantly, we describe how a
+taxation authority can use our scheme in order to identify whether an exchange
+fails to declare some or all of its assets.
+%
+% Finally, we extend the Provisions
+% implementation\footnote{\url{https://github.com/bbuenz/provisions}} with our
+% taxation mechanism.  Our benchmarks show that the extension is lightweight,
+% especially compared to the other pieces of Provisions, and thus is suitable for
+% widespread usage by existing exchanges.\comment{add numbers}
