@@ -2,20 +2,15 @@
 
 In this section we describe a ledger which enables taxation. Our mechanism is
 generic enough, such that existing distributed ledgers can incorporate it via a
-change in the consensus protocol. In Section~\ref{subsec:tax-bitcoin} we
-demonstrate the flexibility of our mechanism by describing a taxation-friendly
-version of Bitcoin.
+change in the consensus protocol.
 
-\subsection{The Taxation Consensus Extension}\label{subsec:tax-ledger-extension}
-
-Our mechanism aims to enable a user $\user$ of a distributed ledger to declare
-the amount of crypto-assets they own to a taxation authority $\taxAuth$.
-
-In achieving this, we target a high level of privacy. Ideally, we want only the
-total amount of assets that $\user$ owns to be leaked to $\taxAuth$. However,
-given the underlying structure of the ledger, it is possible that additional
-information is leaked; \eg in a pseudonymous setting like Bitcoin, one or more
-of the addresses might be linked to the user who owns them.
+A taxable ledger aims to enable a user $\user$ to declare the amount of
+crypto-assets they own to a taxation authority $\taxAuth$. In achieving this,
+we aim at a high level of privacy. Ideally, we want only the total amount of
+assets that $\user$ owns to be leaked to $\taxAuth$. However, given the
+underlying structure of the ledger, it is possible that additional information
+is leaked; \eg in a pseudonymous setting like Bitcoin, one or more of the
+addresses might be linked to the user who owns them.
 
 \paragraph{Assumptions.}
 
@@ -75,5 +70,3 @@ where $n$ is the total number of $\user$'s taxation addresses.
         maintain the taxation address mapping forever, which might be
         significant cost.
 \end{itemize}
-
-\subsection{Enabling Taxation on Bitcoin}\label{subsec:tax-bitcoin}
