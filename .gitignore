@@ -7,7 +7,7 @@
 .DS_Store
 *.out
 *.toc
-taxation_proof.pdf
+taxation.pdf
 *.pdfsync
 experiments/env
 mf
