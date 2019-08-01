@@ -36,15 +36,15 @@ Provisions paper):
 \begin{itemize}
     \item $\text{\textbf{PK}} = \{y_1, \dots, y_n \}$: the (anonymity) set of public keys;
     \item $s_i$: a bit such that, if the exchange controls $y_i$, \ie if it possesses the private key of $y_i$, then $s_i = 1$, otherwise $s_i = 0$;
-    \item $\text{bal}(y_i)$: the amount of assets that the address corresponding to $y_i$ controls;
-    \item $\assets = \sum_{i = 1}^n s_i \cdot \text{bal}(y_i)$: the total amount of assets that the exchange controls;
-    \item $b_i = g^{\text{bal}(y_i)}$: a commitment to the balance of $y_i$.
+    \item $\balance(y_i)$: the amount of assets that the address corresponding to $y_i$ controls;
+    \item $\assets = \sum_{i = 1}^n s_i \cdot \balance(y_i)$: the total amount of assets that the exchange controls;
+    \item $b_i = g^{\balance(y_i)}$: a commitment to the balance of $y_i$.
 \end{itemize}
 
 The exchange publishes two Pedersen commitments. First, it commits to each $s_i
-\cdot \text{bal}(y_i)$:
+\cdot \balance(y_i)$:
 \begin{align}
-    p_i = b_i^{s_i} \cdot h^{v_i} = g^{\text{bal}(y_i) \cdot s_i} \cdot h^{v_i} \label{eq:balance-commit}
+    p_i = b_i^{s_i} \cdot h^{v_i} = g^{\balance(y_i) \cdot s_i} \cdot h^{v_i} \label{eq:balance-commit}
 \end{align}
 where $v_i \in \mathbb{Z}_q$ is chosen at random.
 Second, it commits to each $s_i$:

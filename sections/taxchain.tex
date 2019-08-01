@@ -23,7 +23,9 @@ We assume that the tax authority $\taxAuth$ has a list $P$ of all taxpayers.
 Additionally, we assume the existence of taxation periods which last $d$ time;
 \eg a taxation period lasts $1$ year, at the end of which the taxpayers are
 required to declare their assets. Naturally, both assumptions are in line with
-how real-world tax systems operate.
+how real-world tax systems operate. Finally, we assume a key
+$\keypair_\taxAuth$ which is controlled by and identifies $\taxAuth$ and is
+published on the ledger.
 
 The core idea behind our scheme is to freeze assets which are not accounted
 for. In particular, assume a taxation period $d_i$. At the end of the taxation
@@ -40,39 +42,38 @@ provide a method for users to declare their assets. Additionally, there should
 be established a mechanism such that, when a user declares their assets, then
 the assets are unfrozen.
 
-Thus, every taxpayer $\user$ creates a new key pair $\keypair_\user$ and sends
-the public key $\verifykey_\user$ to $\taxAuth$. Next, $\taxAuth$ generates the
-address $\address_\user$ which corresponds $\verifykey_\user$. Finally, it
-collects all these special, ``taxation'' addresses in a list $I$ and publishes
-it.  When $\user$ wants to declare their assets, they generate their taxation
-address $\address_\user$ and send their assets to it. The protocol ensures that
-the miners accept only transactions which move frozen assets to an address in
-$I$, thus assets are unfrozen only when they are taxed.
+When a taxpayer $\user$ wishes to move frozen assets (either unfreeze their own
+or receive frozen assets from a third party), they create a new key pair
+$\keypair_\user$ and the corresponding address $\address_\user$. Then they send
+$\address_\user$ to $\taxAuth$. Next, $\taxAuth$ certifies $\address_\user$, by
+issuing the signature $\sig = \algosign(\address_\user, \signkey_\taxAuth)$,
+and returns $\sig$ to $\user$. The tuple $\address_\user^{t} = \langle
+\address_\user, \sig \rangle$ is the ``taxation'' address which is used by the
+user to receive frozen assets. Additionally, $\taxAuth$ maintains a mapping of
+taxpayers to taxation addresses, \ie for every taxpayer $\user$ it holds a list
+$A_\user$ of all taxation addresses certified for $\user$ such as
+$\address_\user$.
 
-In order to find the amount of assets for which $\user$ should be taxed,
-$\taxAuth$ checks the amount of assets that have been sent to $\address_\user$.
+A transaction $\tau = \langle \address_{source}, \address_{dest}, x \rangle$
+which moves $x$ frozen assets from the address $\address_{source}$ is valid
+only if $\address_{dest} = \langle \address, \sig \rangle:
+\algoverify(\address, \sig, \verifykey_\taxAuth) = 1$. Therefore, the miners
+will accept transactions that unfreeze assets only as long as said assets are
+transferred to a taxation address.
 
-We note that a user $A$ could send some assets to the taxation address of a
-different user $B$, thus forcing $B$ to be taxed for them; however, in doing
-so, $A$ would also actually transfer ownership of the assets to $B$.
+Afterwards, $\taxAuth$ can find the amount of assets for which $\user$ should
+be taxed by computing $\assets_\user := \sum_{i=1}^{n} \balance(A_{\user}[i])$,
+where $n$ is the total number of $\user$'s taxation addresses.
 
 \paragraph{Challenges.}
 
 \begin{itemize}
-    \item The list $I$ is very expensive in terms of storage. Specifically, it
-        contains information for every taxpayer, who are typically in the range
-        of millions for most countries.
-    \item The taxation declaration is done at the same time for all users.
-        Therefore, the end of every taxation period will bring a very big load
-        of transactions to the system, which might result in significant delays
-        until they are all processed by the miners.
-    \item The amount of assets that every taxpayer controls is leaked to
-        everybody. Although only $\taxAuth$ knows the correlation between
-        taxation addresses and users, the information that a single user
-        controls \eg $x$ amount of assets is still significant. A possible
-        solution to this is to allow each user to send a list of keys to
-        $\taxAuth$, enabling them to split their assets to a number of taxation
-        addresses.
+    \item A taxation address is larger compared to the single address, \eg
+        ECDSA signatures in DER format are approximately $72$
+        bytes\footnote{\url{https://stackoverflow.com/a/17312872}}.
+    \item Should assets remain frozen forever? If so, the authority needs to
+        maintain the taxation address mapping forever, which might be
+        significant cost.
 \end{itemize}
 
 \subsection{Enabling Taxation on Bitcoin}\label{subsec:tax-bitcoin}

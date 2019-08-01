@@ -12,8 +12,8 @@ ownership of the assets, \eg by signing special messages; in Bitcoin, as well
 as most cryptocurrency systems, $\address = \mathsf{H}(\signkey)$ for some hash
 function $\mathsf{H}$.  Assuming $[\address_1, \dots, \address_n]$ is the list
 of all addresses that $\exchange$ controls, the total amount of assets that it
-owns is $\assets = \sum_{i=1}^n \text{bal}(\address_i)$, where
-$\text{bal}(\address)$ is the amount of assets controlled by the address
+owns is $\assets = \sum_{i=1}^n \balance(\address_i)$, where
+$\balance(\address)$ is the amount of assets controlled by the address
 $\address$; the balance of every address is publicly available on the
 blockchain.
 
