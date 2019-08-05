@@ -33,35 +33,37 @@ tools should be developed that will allow enterprises in this space to comply
 with the changes in the legal framework, while retaining the much needed
 properties that technology has to offer, such as privacy.
 
-Crypto-assets, and especially cryptocurrency exchanges, have drawn a lot of
-attention from the tax authorities recently, especially after the surge in
-Bitcoin's price during 2017. Additionally, exchanges, being the primary
-platforms for exchanging cryptocurrency and shaping the market's prices, have
-been on put on the spot by authorities across the globe. Primary examples are
-the U.S. Securities and Exchange Commission, which as of 2018 require exchanges
-to register with it~\cite{securities2018statement}, as well as the Australian
-tax office, which applies the trading stock rules on
-exchanges~\cite{tax2019statement}.
+Crypto-assets have drawn a lot of attention from the tax authorities recently,
+especially after the surge in Bitcoin's price during 2017. Additionally,
+exchanges, being the primary platforms for trading cryptocurrency and shaping
+the market's prices, have been put on the spot by authorities across the
+globe. Primary examples are the U.S. Securities and Exchange Commission, which
+as of 2018 require exchanges to register with
+it~\cite{securities2018statement}, as well as the Australian tax office, which
+applies the trading stock rules on exchanges~\cite{tax2019statement}.
 
-In this paper we explore a mechanism for the taxation of cryptocurrency
-exchanges. First, we explore the necessary properties that such mechanism
-should offer, in order to comply with the information needs of the taxation
+\paragraph{Our contributions.}
+
+In this paper we aim to initiate a (technical) discussion on the taxation of
+cryptocurrency. First, we explore the necessary properties that such mechanism
+should offer, in order to comply with the information needed by the taxation
 authority. Our design aims to maintain the best level of privacy possible, both
 for the exchanges and their users, as well as minimize the level of trust that
 needs to be assumed of the taxation authority. Therefore, we next establishing
 the core limitations of every such taxation mechanism.
 
-Second, our paper introduces a taxation design, which is based on
-Provisions~\cite{CCS:DBBCB15}. Provisions is a proof of solvency mechanism for
-Bitcoin exchanges, which we extend by utilizing well-known cryptographic
-primitives, specifically Schnorr's protocol for proof of knowledge. Our scheme
-allows exchanges to declare the assets that they manage, without the need to
-disclose any additional information. More importantly, we describe how a
-taxation authority can use our scheme in order to identify whether an exchange
-fails to declare some or all of its assets.
-%
-% Finally, we extend the Provisions
-% implementation\footnote{\url{https://github.com/bbuenz/provisions}} with our
-% taxation mechanism.  Our benchmarks show that the extension is lightweight,
-% especially compared to the other pieces of Provisions, and thus is suitable for
-% widespread usage by existing exchanges.\comment{add numbers}
+Second, our paper introduces a taxation design for enterprises, which is based
+on Provisions~\cite{CCS:DBBCB15}. Provisions is a proof of solvency mechanism
+for Bitcoin exchanges, which we extend by utilizing well-known cryptographic
+primitives in order to allow enterprises to declare their assets without
+necessarily disclosing their entire transaction history. Importantly, we
+describe how a tax authority can use our scheme to identify whether an
+enterprise fails to declare some of its assets.
+
+Third, we describe a cryptocurrency which enforces the taxpayers to declare
+their crypto-assets to the tax authority in a privacy-preserving manner. Our
+core idea is to render the assets unusable unless the user declares them for
+taxation. Interestingly, our mechanism allows a level of privacy at least as
+high as Bitcoin-like systems, \ie a user reveals to the tax authority
+\emph{only} the total amount of assets they control, without leaking their
+transaction history.
