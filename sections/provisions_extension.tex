@@ -1,13 +1,35 @@
 \section{A Taxation Extension for Provisions}\label{sec:provisions-extension}
 
-In this section we build a taxation mechanism by extending
-Provisions~\cite{CCS:DBBCB15}. First, we give a brief overview of the
-Provisions scheme, importantly the \emph{proof of assets} which is of interest
-in our work. Next, we define two simple protocols, which the exchange runs with
-the taxation authority and the exchange's client respectively. We show that our
-protocols retain the privacy guarantees of Provisions, as well as enabling a
-taxation authority to identify a tax evasion following the discussion in
-Section~\ref{sec:taxation}.
+In this section we build a taxation mechanism for cryptocurrency enterprises,
+\eg exchanges, by extending Provisions~\cite{CCS:DBBCB15}. In designing our
+taxation extension we keep in mind that, in case an enterprise $\exchange$
+evades taxation for an address $\address$, a user who receives assets from
+$\address$ should be able to identify whether the assets have been properly
+taxed. We cover this requirement by proposing a taxation proof; thus, a user
+can request such proof \emph{after} they receive the assets, \ie after
+$\exchange$ has committed to owning an address $\address$. If $\exchange$ fails
+to provide such proof, then the user can safely assume that $\exchange$ evaded
+taxation via $\address$.
+
+Due to the limitations described in the previous section, it is necessary that
+the taxation authority $\taxAuth$ itself observes the tax evasion. Therefore,
+we also require that $\exchange$ does not know whether the recipient of the
+funds will request a taxation proof; naturally, if $\exchange$ knows a priori
+that a user will request a taxation proof, it will instead send them taxed
+assets. Next, we assume that $\taxAuth$ covertly interacts with the users and,
+upon receiving some funds, requests a taxation proof. If, for this specific
+transaction, a tax evading address is used, then $\taxAuth$ will identify the
+tax evasion. We note that enterprises, like exchanges, are expected to be more
+compliant as more users request a taxation proof. Indeed, if a large number of
+users identifies tax evasion, although unable to (technically) prove the fact,
+they are would put pressure to the exchange to become legitimate.
+
+Next, we give a brief overview of the Provisions scheme, importantly the
+\emph{proof of assets} which is of interest in our work. Our scheme comprises
+of two simple protocols, which the exchange runs with the taxation authority
+and their clients respectively. Finally, we show that our protocols retain the
+privacy guarantees of Provisions, as well as enabling a taxation authority to
+identify a tax evasion following the discussion above.
 
 \subsection{Overview of Provisions}\label{subsec:provisions-overview}
 
@@ -124,9 +146,9 @@ properties of the Schnorr protocol.
 \subsection{The Address Verification Protocol}\label{subsec:user-verification-proto}
 
 The second part of our taxation proof enables the taxation verification of a
-specific address by a user. As described in Section~\ref{subsec:tax-properties}, when a
-user receives a transfer from the exchange, \eg during a withdrawal, they
-should be able to to verify that the received assets are properly taxed.
+specific address by a user. As described above, when a user receives a transfer
+from the exchange, \eg during a withdrawal, they should be able to to verify
+that the received assets are properly taxed.
 
 The exchange now needs to prove two conditions to the user:
 \begin{inparaenum}[i)]

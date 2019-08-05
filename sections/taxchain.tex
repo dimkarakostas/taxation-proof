@@ -60,12 +60,13 @@ Afterwards, $\taxAuth$ can find the amount of assets for which $\user$ should
 be taxed by computing $\assets_\user := \sum_{i=1}^{n} \balance(A_{\user}[i])$,
 where $n$ is the total number of $\user$'s taxation addresses.
 
-\emph{Note:} The above system can be extended to accommodate multiple taxation
-authorities, \eg for a list of countries. In that case, $\taxAuth$ is treated
-as a federation of authorities, each identified by a single key, and
-$\keypair_\taxAuth$ is the list of keys for all taxation authorities. A
-taxpayer can then certify its address with the authority of their country of
-residence and thus declare their assets only to this authority.
+\emph{Note:} The above system can be extended for multiple taxation
+authorities, \eg to accommodate a list of countries. In that case, $\taxAuth$
+is a federation of authorities, each identified by a single key, and
+the list of keys for all taxation authorities is published instead of
+$\keypair_\taxAuth$. A taxpayer can then certify its address with the authority
+of their country of residence and thus declare their assets only to this
+authority.
 
 \paragraph{Challenges.}
 

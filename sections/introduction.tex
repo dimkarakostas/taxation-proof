@@ -44,7 +44,7 @@ applies the trading stock rules on exchanges~\cite{tax2019statement}.
 
 \paragraph{Our contributions.}
 
-In this paper we aim to initiate a (technical) discussion on the taxation of
+In this paper we aim to initiate a technical discussion on the taxation of
 cryptocurrency. First, we explore the necessary properties that such mechanism
 should offer, in order to comply with the information needed by the taxation
 authority. Our design aims to maintain the best level of privacy possible, both
@@ -52,18 +52,20 @@ for the exchanges and their users, as well as minimize the level of trust that
 needs to be assumed of the taxation authority. Therefore, we next establishing
 the core limitations of every such taxation mechanism.
 
-Second, our paper introduces a taxation design for enterprises, which is based
-on Provisions~\cite{CCS:DBBCB15}. Provisions is a proof of solvency mechanism
-for Bitcoin exchanges, which we extend by utilizing well-known cryptographic
-primitives in order to allow enterprises to declare their assets without
-necessarily disclosing their entire transaction history. Importantly, we
-describe how a tax authority can use our scheme to identify whether an
-enterprise fails to declare some of its assets.
+Second, our paper introduces a taxation design for enterprises which is in line
+with the existing designs and can be directly applied on top of systems like
+Bitcoin. Our design is based on Provisions~\cite{CCS:DBBCB15}, a proof of
+solvency mechanism for Bitcoin exchanges, which we extend by utilizing
+well-known cryptographic primitives in order to allow enterprises to declare
+their assets without necessarily disclosing their entire transaction history.
+Importantly, we describe how a tax authority can use our scheme to identify
+whether an enterprise fails to declare some of its assets.
 
 Third, we describe a cryptocurrency which enforces the taxpayers to declare
 their crypto-assets to the tax authority in a privacy-preserving manner. Our
 core idea is to render the assets unusable unless the user declares them for
-taxation. Interestingly, our mechanism allows a level of privacy at least as
-high as Bitcoin-like systems, \ie a user reveals to the tax authority
-\emph{only} the total amount of assets they control, without leaking their
-transaction history.
+taxation. Naturally, this is a radical change which would be enforced on
+existing systems only via a major update, \ie a hard fork. Interestingly, our
+mechanism allows a level of privacy at least as good as Bitcoin-like systems,
+\ie a user reveals to the tax authority \emph{only} the total amount of assets
+they control, without leaking their transaction history.

@@ -1,90 +1,90 @@
 \section{The Taxation Mechanism}\label{sec:taxation}
 
-In this section we explore the necessary properties and core limitations of a
-taxation mechanism.
+In every cryptocurrency system, a user $\user$ manages their assets via
+\emph{addresses}. Every address $\address$ is associated with a key pair
+$\keypair$, such that the private key $\signkey$ is used to claim ownership of
+the assets, \eg by signing special messages; in Bitcoin, as well as most
+cryptocurrency systems, $\address = \mathsf{H}(\verifykey)$ for some hash
+function $\mathsf{H}$. Assuming $[\address_1, \dots, \address_n]$ is the list
+of all addresses that $\user$ controls, the total amount of assets that it owns
+is $\assets = \sum_{i=1}^n \balance(\address_i)$, where $\balance(\address)$ is
+the amount of assets controlled by the address $\address$; the balance of every
+address is publicly available on the blockchain.
 
-\subsection{Properties}\label{subsec:tax-properties}
-
-In every cryptocurrency system, a user, \eg an exchange $\exchange$, manages
-their assets via \emph{addresses}. Every address $\address$ is associated with
-a key pair $\keypair$, such that the private key $\signkey$ is used to claim
-ownership of the assets, \eg by signing special messages; in Bitcoin, as well
-as most cryptocurrency systems, $\address = \mathsf{H}(\signkey)$ for some hash
-function $\mathsf{H}$.  Assuming $[\address_1, \dots, \address_n]$ is the list
-of all addresses that $\exchange$ controls, the total amount of assets that it
-owns is $\assets = \sum_{i=1}^n \balance(\address_i)$, where
-$\balance(\address)$ is the amount of assets controlled by the address
-$\address$; the balance of every address is publicly available on the
-blockchain.
-
-The minimum requirement for a taxation mechanism for cryptocurrency is that the
-exchange $\exchange$ declares its assets to the taxation authority $\taxAuth$.
 Our goal is to design a mechanism that enables taxation, while retaining as
-much privacy as possible. Ideally, the only information that is leaked to
-$\taxAuth$ should be $\assets$, while ensuring a provably correct declaration.
-In other words, without revealing the address, the exchange should be able to
-provide a zero-knowledge proof of knowledge of the private key for every
-address for which it claims ownership.
+much privacy as possible. In every taxation system, a basic requirement is that
+the user $\user$ declares its assets to the taxation authority $\taxAuth$.
+Ideally, this information, \ie $\assets$, is the only information that is
+leaked to $\taxAuth$, while ensuring the user does not ``hide'' any assets.
 
-\subsection{Limitations}\label{subsec:tax-limitations}
+\paragraph{Limitations.}\label{subsec:limitations}
 
-Assume that an exchange $\exchange$ tax evades, \ie creates a secret,
-undeclared address $\address$ and sends some assets $\theta$ to it. As long as
-the keeps the address hidden, \ie does not use it, it is impossible for any
-party to any party to identify or prove that $\exchange$ owns $\address$ and,
-consequently, $\theta$.
+We showcase the limitations of current systems with a telling example.  Assume
+that Alice tax evades, \ie creates a secret, undeclared address $\address$ and
+controls some assets $\theta$ in it. As long as $\address$ is kept hidden, \ie
+Alice does not use it, it is impossible for any party to identify or prove that
+Alice owns $\address$ and, consequently, $\theta$.
 
-Now assume that, at some future point, the exchange issues a transaction $\tau$
-which sends $\theta$ assets from $\address$ to a party $\user$, \eg when
-$\user$ requests a withdrawal from the exchange. If $\user$ suspects that the
-exchange evaded taxation for the $\theta$ assets, they might want to report the
-exchange to the taxation authority $\taxAuth$ for inspection, \ie they form a
-complaint that $\exchange$ owns $\address$ and tax evades via it.
+Now assume that, at some future point, Alice issues a transaction $\tau$ which
+sends $\theta$ assets from $\address$ to Bob. If Bob suspects that Alice evaded
+taxation for the $\theta$ assets, they might want to report them to the
+taxation authority $\taxAuth$ for inspection, \ie they would form a complaint
+that Alice owns $\address$ and tax evades via it.
 
-When $\taxAuth$ receives the user's complaint, it faces a problem. Even if
-$\taxAuth$ has proof that $\exchange$ did not declare $\address$ for taxation,
-it further needs proof that $\address$ is controlled by the exchange, \ie proof
-that the exchange knows the private key that pertains to $\address$. The reason
-is that it cannot know if the $\user$ is lying, \ie if $\address$ is not
-controlled by $\exchange$ but by $\user$ themselves. In other words, $\taxAuth$
-needs to distinguish between two scenarios:
+When $\taxAuth$ receives Bob's complaint, it faces a problem. Even if
+$\taxAuth$ has proof that Alice did not declare $\address$ for taxation, it
+further needs proof that $\address$ is in fact controlled by Alice, \ie a proof
+that Alice knows the private key that pertains to $\address$. Without such
+proof, it would be feasible for Bob to lie about Alice owning $\address$. In
+other words, $\taxAuth$ needs to distinguish between two scenarios:
 \begin{inparaenum}[i)]
-    \item $\exchange$ controls $\address$ and tax evades, or
-    \item $\user$ is lying about $\exchange$ owning $\address$.
+    \item Alice controls $\address$ and tax evades, or
+    \item Bob is lying about Alice owning $\address$.
 \end{inparaenum}
 
-Observe that, in the first scenario, $\user$ does know that $\address$ is
-controlled by $\exchange$. However, due to the pseudonymity of Bitcoin, the
-transaction $\tau$ is not sufficient to prove this fact. Instead, $\user$
-needs a proof which can only be supplied by the exchange, \eg a signature from
-the exchange's public key which acknowledges $\tau$ or $\address$. However, if
-$\exchange$ does tax evade via $\address$, it is unreasonable to assume that it
-would create such proof, which would effectively incriminate itself.
+Observe that, in the first scenario, Bob \emph{does} know that $\address$ is
+controlled by Alice. However, due to the pseudonymity of cryptocurrency
+systems, the transaction $\tau$ is not sufficient to prove this fact. Instead,
+Bob needs a proof which can only be supplied by Alice, \eg a signature from
+Alice which acknowledges $\tau$ or $\address$. However, if Alice tax evades via
+$\address$, it is safe to assume that they would not create such proof, which
+would effectively incriminate themselves.
 
-\subsection{Design}\label{subsec:tax-design}
+\paragraph{Desiderata.}\label{subsec:desiderata}
 
-In designing our taxation mechanism we keep in mind that, in case an exchange
-$\exchange$ evades taxation for some address $\address$, a user who receives
-some assets from $\address$ should be able to identify the evasion.  We ensure
-this by enabling every user to request a taxation proof \emph{after} the
-transaction has been issued, \ie after $\exchange$ has committed to owning an
-address $\address$. If $\exchange$ fails to provide such proof, then the user
-can safely assume that $\exchange$ evaded taxation via $\address$.
+Although enabling taxation is a step forward, it is crucial that we retain as
+many good features of existing cryptocurrency systems as possible. One such
+core feature is transaction privacy. Bitcoin-like ledgers enhance privacy via
+the pseudonymous nature of addresses, while designs like
+Zerocash~\cite{SP:BCGGMT14} utilize zero-knowledge to achieve full anonymity of
+transactions, \ie hiding the sender, recipient, and amount of each individual
+transaction. Our aim is to retain at least Bitcoin levels of privacy by
+minimizing the information which is leaked during the taxation process.
 
-Due to the limitations described above, it is not sufficient that any user
-identifies the evasion, instead the taxation authority $\taxAuth$ itself should
-observe it. Therefore, we also require that $\exchange$ does not know whether
-the user will request a taxation proof after the transaction is issued. This is
-important since, if $\exchange$ knows a priori that a user will request a
-taxation proof, it will instead use a legitimate address, \ie an address which
-is declared for taxation.
+Another important aspect is the performance of a taxation mechanism.  A
+fundamental ingredient of cryptocurrency systems is the seamless transaction
+experience, thus it is important to allow users to transact at all times, while
+also avoiding to introduce significant strain to the system during, \eg, the
+taxation period. Finally, any mechanism should aim to minimize the amount of
+(additional) data which are published to the ledger, since the storage cost in
+distributed ledgers is a core measure of efficiency.
 
-Now, we assume that $\taxAuth$ covertly becomes a user of the exchange and,
-upon performing a withdrawal, requests a taxation proof. If, for this specific
-transaction, the exchange uses a tax evading address, $\taxAuth$ will identify
-the tax evasion.
-
-We note that, as more users utilize the mechanism and request a taxation proof,
-the more compliant an exchange is expected to be. Indeed, if a large number of
-users identifies the tax evasion, although unable to (technically) prove it,
-the complaints against the exchange should be expected to hinder its operation.
+In conclusion, our desiderata when designing a taxation mechanism are
+summarized as follows:
+\begin{itemize}
+    \item \textbf{High level of privacy}:
+        \begin{itemize}
+            \item the tax authority $\taxAuth$ should only learn at most the
+                total amount of assets owned per user at the end of a tax year
+            \item no information about the assets of a user should be leaked to
+                any party other than $\taxAuth$
+        \end{itemize}
+    \item \textbf{Unobstructed operation}: the introduction of a taxation
+        mechanism should not introduce any time period over which the (tax
+        compliant) users are unable to transact
+    \item \textbf{Low performance overhead}: the taxation mechanism should not
+        introduce a major performance overhead
+    \item \textbf{Distributed system overload}: the performance overhead should
+        be spread over a period of time, rather than result specific moments
+        during which the stress on the system spikes
+\end{itemize}
