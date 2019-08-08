@@ -70,11 +70,23 @@ authority.
 
 \paragraph{Challenges.}
 
-\begin{itemize}
-    \item A taxation address is larger compared to the single address, \eg
-        ECDSA signatures in DER format are approximately $72$
-        bytes\footnote{\url{https://stackoverflow.com/a/17312872}}.
-    \item Should assets remain frozen forever? If so, the authority needs to
-        maintain the taxation address mapping forever, which might be
-        significant cost.
-\end{itemize}
+The first immediate effect of the taxation mechanism is the taxation addresses
+themselves. Standard pay-to-public-key-hash
+addresses\footnote{\url{https://en.bitcoin.it/wiki/Address}} are $25$ bytes.
+However, taxation addresses are significantly larger, due to the certification
+signature of $\taxAuth$; for instance, using ECDSA signatures in the DER format
+results in additional $72$ bytes, thus making taxation addresses $99$ bytes
+long. Fortunately, taxation addresses are expected to be used, in order to
+declare the crypto-assets, only once, thus the overall storage cost should not
+be significant.
+
+Another important consideration regards the treatment of the frozen assets.
+Given the statute of limitations, it might be required that the tax authority
+$\taxAuth$ maintains its taxation private key, as well as the mapping for
+certified addresses per users, for a significant amount of time\footnote{For
+instance, in the US, the IRS would need to keep this data forever, since there
+is no statute of limitations in cases of false, fraudulent, or missing reports
+(cf.
+\url{https://tax.findlaw.com/tax-problems-audits/what-is-the-irs-statute-of-limitations-or-deadline-for-action-on-.html})}.
+This might introduce additional costs in the log keeping that $\taxAuth$ needs
+to do.
