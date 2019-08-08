@@ -74,17 +74,18 @@ summarized as follows:
 \begin{itemize}
     \item \textbf{High level of privacy}:
         \begin{itemize}
-            \item the tax authority $\taxAuth$ should only learn at most the
-                total amount of assets owned per user at the end of a tax year
-            \item no information about the assets of a user should be leaked to
-                any party other than $\taxAuth$
+            \item The tax authority $\taxAuth$ should only learn at most the
+                total amount of assets owned per user at the end of a tax year.
+            \item No information about the amount of assets that a user owns
+                should be leaked to any party other than $\taxAuth$ (excluding
+                the information already leaked by the ledger itself).
         \end{itemize}
     \item \textbf{Unobstructed operation}: the introduction of a taxation
         mechanism should not introduce any time period over which the (tax
-        compliant) users are unable to transact
+        compliant) users are unable to use their assets.
     \item \textbf{Low performance overhead}: the taxation mechanism should not
-        introduce a major performance overhead
+        introduce a major performance overhead (\ie computation and storage).
     \item \textbf{Distributed system overload}: the performance overhead should
-        be spread over a period of time, rather than result specific moments
-        during which the stress on the system spikes
+        be spread over a period of time, rather than result in computation
+        spikes.
 \end{itemize}
