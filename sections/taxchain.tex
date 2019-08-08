@@ -90,3 +90,34 @@ is no statute of limitations in cases of false, fraudulent, or missing reports
 \url{https://tax.findlaw.com/tax-problems-audits/what-is-the-irs-statute-of-limitations-or-deadline-for-action-on-.html})}.
 This might introduce additional costs in the log keeping that $\taxAuth$ needs
 to do.
+
+\paragraph{Applying taxation on Bitcoin.}
+
+In order to showcase our taxable ledger, we now introduce a variation of
+Bitcoin which enables taxation. The taxable Bitcoin is initially parameterized
+by the public key of the taxation authority $\keypair_\taxAuth$, which is part
+of the ledger's genesis block\footnote{For information on Bitcoin's genesis
+block we refer to \url{https://en.bitcoin.it/wiki/Genesis_block}}. This key is
+used to both certify taxation addresses; in order to update it and use a new
+key $\keypair_\taxAuth'$, $\taxAuth$ simply signs $\verifykey_\taxAuth'$ with
+$\signkey_\taxAuth$ and publishes the new signed key on the ledger.
+
+We assume that a taxation period lasts $52560$ blocks, which is roughly $1$
+calendar year\footnote{A Bitcoin block is created on average every $10$
+minutes.}; we call the block $52560$ and its multiples ``taxation'' blocks.
+Therefore, when a taxation block is issued, all addresses which control
+bitcoins, \ie the UTxO distribution, are frozen. We note that, since it is
+possible that multiple competing taxation blocks are created, \eg multiple
+blocks which extend the $52559$th block, $\taxAuth$ needs to pick only one and
+certify it; afterwards, the certified taxation block cannot be reverted, thus
+acting as a ``checkpoint'' in the chain.
+
+In order to spend bitcoins from a frozen address $\address \in A$, the user
+issues a transaction $\transaction = \langle \address, \address', \assets
+\rangle$. $\transaction$ is valid if, assuming $\address' = \langle
+\hat{\address}, \sig \rangle$, it holds that $\algoverify(\hat{\address}, \sig,
+\verifykey_\taxAuth) = 1$; any transaction which does not conform to this rule,
+\ie which attempts to send funds to a non-taxation address, is invalid and
+rejected by the miners. The address $\hat{\address}$ can be any standard
+Bitcoin address, therefore in order to spend from it the user can issue a
+regular Bitcoin transaction.
