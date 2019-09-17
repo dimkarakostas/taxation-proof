@@ -1,39 +1,32 @@
 \section{A Taxation Extension for Provisions}\label{sec:provisions-extension}
 
-In this section we build a taxation mechanism for cryptocurrency enterprises,
-\eg exchanges, by extending Provisions~\cite{CCS:DBBCB15}. In designing our
-taxation extension we keep in mind that, in case an enterprise $\exchange$
-evades taxation for an address $\address$, a user who receives assets from
-$\address$ should be able to identify whether the assets have been properly
-taxed. We cover this requirement by proposing a taxation proof; thus, a user
-can request such proof \emph{after} they receive the assets, \ie after
-$\exchange$ has committed to owning an address $\address$. If $\exchange$ fails
-to provide such proof, then the user can safely assume that $\exchange$ evaded
-taxation via $\address$.
+We now build a taxation mechanism for cryptocurrency enterprises, \eg
+exchanges, by extending Provisions~\cite{CCS:DBBCB15}. We remind that a user
+should be able to identify whether the assets they receive from an enterprise
+$\exchange$ have been properly taxed. This is achieved via a taxation proof,
+which a user can request \emph{after} they receive the assets, and $\exchange$
+has committed to owning them.  If $\exchange$ fails to provide such proof, then
+the user can safely assume that $\exchange$ evaded taxation.
 
-Due to the limitations described in the previous section, it is necessary that
-the taxation authority $\taxAuth$ itself observes the tax evasion. Therefore,
-we also require that $\exchange$ does not know whether the recipient of the
-funds will request a taxation proof; naturally, if $\exchange$ knows a priori
-that a user will request a taxation proof, it will instead send them taxed
-assets. Next, we assume that $\taxAuth$ covertly interacts with the users and,
-upon receiving some funds, requests a taxation proof. If, for this specific
-transaction, a tax evading address is used, then $\taxAuth$ will identify the
-tax evasion. We note that enterprises, like exchanges, are expected to be more
-compliant as more users request a taxation proof. Indeed, if a large number of
-users identifies tax evasion, although unable to (technically) prove the fact,
-they are would put pressure to the exchange to become legitimate.
+Due to the limitations of Section~\ref{sec:taxation}, it is necessary that
+$\taxAuth$ itself observes the evasion. Therefore, we also require that
+$\exchange$ does not know a priori whether the recipient of the funds will
+request a taxation proof.  Next, we assume that $\taxAuth$ covertly interacts
+with $\exchange$ and requests taxation proofs. If, for such transaction, a tax
+evading address is used, $\taxAuth$ can identify the tax evasion. We also note
+that if many users identify tax evasion, although unable to (technically) prove
+the fact, they can put pressure on enterprises to comply with taxation.
 
-Next, we give a brief overview of the Provisions scheme, importantly the
-\emph{proof of assets} which is of interest in our work. Our scheme comprises
-of two simple protocols, which the exchange runs with the taxation authority
-and their clients respectively. Finally, we show that our protocols retain the
-privacy guarantees of Provisions, as well as enabling a taxation authority to
-identify a tax evasion following the discussion above.
+% Next, we give a brief overview of the Provisions scheme, importantly the
+% \emph{proof of assets} which is of interest in our work. Our scheme comprises
+% of two simple protocols, which the exchange runs with the taxation authority
+% and their clients respectively. Finally, we show that our protocols retain the
+% privacy guarantees of Provisions, as well as enabling a taxation authority to
+% identify a tax evasion following the discussion above.
 
-\subsection{Overview of Provisions}\label{subsec:provisions-overview}
+\paragraph{Overview of Provisions.}\label{subsec:provisions-overview}
 
-The core contribution of Provisions is a \emph{privacy-preserving} auditing
+Provisions is a \emph{privacy-preserving} auditing
 mechanism for Bitcoin exchanges. Using Provisions a user can verify that a
 (cooperating) Bitcoin exchange is solvent, \ie possesses enough assets to cover
 the liabilities towards its users. In order to achieve this, Provisions defines
@@ -43,18 +36,17 @@ three protocols:
     \item proof of liabilities, and
     \item proof of solvency.
 \end{inparaenum}
-The first protocol commits the exchange --- in a zero-knowledge fashion --- to
-the total amount of assets it possesses. Similarly, the second protocol commits
-it to the liabilities towards its clients, such that each client can verify
-that the exchange has included his/her deposits in the collective proof.
-Finally, the proof of solvency proves that the exchange's assets are equal or
-surpass its liabilities.
+% The first protocol commits the exchange --- in a zero-knowledge fashion --- to
+% the total amount of assets it possesses. Similarly, the second protocol commits
+% it to the liabilities towards its clients, such that each client can verify
+% that the exchange has included his/her deposits in the collective proof.
+% Finally, the proof of solvency proves that the exchange's assets are equal or
+% surpass its liabilities.
 
 Our work is only interested in the assets owned by the exchange, thus we focus
-on the proof of assets. In Provisions, all proofs are considered under a group
+on the proof of assets. All proofs are considered under a group
 $G$ of prime order $q$ with fixed public generators $g, h$. The proof of assets
-considers the following parameters (here we follow the notation of the original
-Provisions paper):
+considers the following:
 \begin{itemize}
     \item $\text{\textbf{PK}} = \{y_1, \dots, y_n \}$: the (anonymity) set of public keys;
     \item $s_i$: a bit such that, if the exchange controls $y_i$, \ie if it possesses the private key of $y_i$, then $s_i = 1$, otherwise $s_i = 0$;
@@ -80,77 +72,74 @@ where $x_i$ is the private key for $y_i$, $\hat{x}_i = x_i \cdot s_i$, and $t_i
 The proof is built via a $\Sigma$-protocol, which allows the exchange to prove
 knowledge of values $s_i, v_i, t_i, \hat{x}_i$ for every $i \in [1, n]$ such
 that conditions (\ref{eq:balance-commit}), (\ref{eq:ownership-commit}), and
-(\ref{eq:privkey-commit}) are satisfied; the Provisions' proof of assets
-protocol is included in Appendix~\ref{subsec:provisions-assets-proof} for
-completeness.
+(\ref{eq:privkey-commit}) are satisfied.
+% the Provisions' proof of assets
+% protocol is included in Appendix~\ref{subsec:provisions-assets-proof} for
+% completeness.
 
-\subsection{The Asset Taxation Protocol}\label{subsec:tax-authority-proto}
+\paragraph{The Asset Taxation Protocol.}\label{subsec:tax-authority-proto}
 
-The first part of our mechanism is executed between the exchange $\exchange$
-and the taxation authority $\taxAuth$. Specifically, the authority requests the
-total amount of assets that $\exchange$ controls, \ie the value $\assets$.
-Next, $\taxAuth$ needs to verify that $\exchange$'s commitments correspond to
-the value $\assets$.
-
-The verification can be completed by utilizing Provisions' proof of assets
-mechanism. First, we observe that:
+The first part of our mechanism is executed between $\exchange$ and $\taxAuth$.
+Specifically, $\taxAuth$ requests the total amount of assets that $\exchange$
+controls, \ie the value $\assets$. Next, $\taxAuth$ verifies that $\exchange$'s
+commitments correspond to $\assets$. We observe that:
 \begin{align}
     Z_\assets = \prod_{i = 1}^n p_i = g^{\assets} \cdot h^v \label{eq:assets}
 \end{align}
 for $v = {\sum_{i = 1}^n v_i}$, is a --- publicly computable --- Pedersen
 commitment to the exchange's assets. Given that $\taxAuth$ knows $\assets$, the
 exchange needs only to prove knowledge of a value $v$, such that condition
-(\ref{eq:assets}) is satisfied. To achieve this, $\exchange$ and $\taxAuth$ run
-the Schnorr protocol~\cite{C:Schnorr89} defined in
-Figure~\ref{fig:taxation_auth_proto}.
+(\ref{eq:assets}) is satisfied. This can be achieved via a standard Schnorr
+protocol~\cite{C:Schnorr89}, which ensures that $v$ is not leaked to $\taxAuth$
+and that $\exchange$ cannot forge a proof.
 
-\begin{figure}[h]
-\begin{mdframed}
+% Thus, $\exchange$ and $\taxAuth$ run the Schnorr protocol defined in
+% Figure~\ref{fig:taxation_auth_proto}.
+%
+% \begin{figure}[h]
+% \begin{mdframed}
+%
+% \begin{center}
+%     \textbf{Asset Taxation Protocol} $\taxationProto$
+% \end{center}
+%
+%     \begin{itemize}
+%         \item Public data: $g, h, Z_\assets = \prod_{i = 1}^n p_i$
+%         \item Verifier's input from prover: $\assets$
+%         \item Prover's input: $v = \sum_{i = 1}^n v_i$
+%     \end{itemize}
+%
+%     \begin{enumerate}
+%         \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
+%             and sends $\lambda = h^r$ to the verifier ($\taxAuth$).
+%         \item The verifier replies with a challenge $c \xleftarrow{\$} \mathbb{Z}_q$.
+%         \item The prover responds with $\theta = r + c \cdot v$.
+%         \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (Z_\assets \cdot g^{-\assets})^c$.
+%     \end{enumerate}
+%
+% \end{mdframed}
+% \caption{
+%     The Asset Taxation Protocol which is run between the exchange $\exchange$
+%     (prover) and the taxation authority $\taxAuth$ (verifier).
+% }
+% \label{fig:taxation_auth_proto}
+% \end{figure}
+%
+% The required privacy guarantees are ensured by
+% Theorem~\ref{thm:tax-auth-proto}, which can be easily proven given the
+% properties of the Schnorr protocol~\cite{C:Schnorr89}.
+%
+% \begin{theorem}\label{thm:tax-auth-proto}
+%     For public values $g, h, Z_\assets = \prod_{i = 1}^n p_i$ for $i \in [1,
+%     n]$, the protocol $\taxationProto$ is an honest-verifier zero-knowledge
+%     argument of knowledge of quantity $v$ satisfying condition (\ref{eq:assets}).
+% \end{theorem}
 
-\begin{center}
-    \textbf{Asset Taxation Protocol} $\taxationProto$
-\end{center}
-
-    \begin{itemize}
-        \item Public data: $g, h, Z_\assets = \prod_{i = 1}^n p_i$
-        \item Verifier's input from prover: $\assets$
-        \item Prover's input: $v = \sum_{i = 1}^n v_i$
-    \end{itemize}
-
-    \begin{enumerate}
-        \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
-            and sends $\lambda = h^r$ to the verifier ($\taxAuth$).
-        \item The verifier replies with a challenge $c \xleftarrow{\$} \mathbb{Z}_q$.
-        \item The prover responds with $\theta = r + c \cdot v$.
-        \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (Z_\assets \cdot g^{-\assets})^c$.
-    \end{enumerate}
-
-\end{mdframed}
-\caption{
-    The Asset Taxation Protocol which is run between the exchange $\exchange$
-    (prover) and the taxation authority $\taxAuth$ (verifier).
-}
-\label{fig:taxation_auth_proto}
-\end{figure}
-
-The required privacy guarantees are ensured by
-Theorem~\ref{thm:tax-auth-proto}, which can be easily proven given the
-properties of the Schnorr protocol.
-
-\begin{theorem}\label{thm:tax-auth-proto}
-    For public values $g, h, Z_\assets = \prod_{i = 1}^n p_i$ for $i \in [1,
-    n]$, the protocol $\taxationProto$ is an honest-verifier zero-knowledge
-    argument of knowledge of quantity $v$ satisfying condition (\ref{eq:assets}).
-\end{theorem}
-
-\subsection{The Address Verification Protocol}\label{subsec:user-verification-proto}
+\paragraph{The Address Verification Protocol.}\label{subsec:user-verification-proto}
 
 The second part of our taxation proof enables the taxation verification of a
-specific address by a user. As described above, when a user receives a transfer
-from the exchange, \eg during a withdrawal, they should be able to to verify
-that the received assets are properly taxed.
-
-The exchange now needs to prove two conditions to the user:
+specific address by every user. The exchange now needs to prove two conditions
+to the user:
 \begin{inparaenum}[i)]
     \item for some $i \in [1, n]$, the public key $y_i$ (which is published as
         part of the Provisions scheme) corresponds to the address from which
@@ -166,48 +155,51 @@ statement (\ref{eq:ownership-commit}) becomes:
     l_i = y_ih^{t_i} \label{eq:owned-address-commit}
 \end{align}
 Therefore, the exchange needs only to prove knowledge of $t_i$, such that the
-statement (\ref{eq:owned-address-commit}) is satisfied; this is achieved via
-the Schnorr protocol defined in Figure~\ref{fig:taxation_verification_proto}.
+statement (\ref{eq:owned-address-commit}) is satisfied, which can be achieved
+via a Schnorr protocol as above.
 
-\begin{figure}[h]
-\begin{mdframed}
+% This is achieved via
+% the Schnorr protocol defined in Figure~\ref{fig:taxation_verification_proto}.
+%
+% \begin{figure}[h]
+% \begin{mdframed}
+%
+% \begin{center}
+%     \textbf{Address Verification Protocol} $\taxationAddressProto$
+% \end{center}
+%
+%     \begin{itemize}
+%         \item Public data: $h$, $(y_i, l_i)$ for $i \in [1, n]$
+%         \item Verifier's input from prover: $i$
+%         \item Prover's input: $t_i$
+%     \end{itemize}
+%
+%     \begin{enumerate}
+%         \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
+%             and sends $\lambda = h^r$ to the verifier.
+%         \item The verifier replies with a challenge $c \xleftarrow{\$} \mathbb{Z}_q$.
+%         \item The prover responds with $\theta = r + c \cdot t_i$.
+%         \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (l_i \cdot y_i^{-1})^c$.
+%     \end{enumerate}
+%
+% \end{mdframed}
+% \caption{
+%     The Address Verification Protocol which is run between the exchange $\exchange$
+%     (prover) and the user (verifier).
+% }
+% \label{fig:taxation_verification_proto}
+% \end{figure}
+%
+% Similarly to the previous section, the necessary level of privacy is defined by
+% Theorem~\ref{thm:user-proto}, due to the security properties of the Schnorr
+% protocol.
+%
+% \begin{theorem}\label{thm:user-proto}
+%     For public values $h$ and $(y_i, l_i)$, the protocol
+%     $\taxationAddressProto$ is an honest-verifier zero-knowledge argument of
+%     knowledge of quantity $t_i$ satisfying condition (\ref{eq:owned-address-commit}).
+% \end{theorem}
 
-\begin{center}
-    \textbf{Address Verification Protocol} $\taxationAddressProto$
-\end{center}
-
-    \begin{itemize}
-        \item Public data: $h$, $(y_i, l_i)$ for $i \in [1, n]$
-        \item Verifier's input from prover: $i$
-        \item Prover's input: $t_i$
-    \end{itemize}
-
-    \begin{enumerate}
-        \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
-            and sends $\lambda = h^r$ to the verifier.
-        \item The verifier replies with a challenge $c \xleftarrow{\$} \mathbb{Z}_q$.
-        \item The prover responds with $\theta = r + c \cdot t_i$.
-        \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (l_i \cdot y_i^{-1})^c$.
-    \end{enumerate}
-
-\end{mdframed}
-\caption{
-    The Address Verification Protocol which is run between the exchange $\exchange$
-    (prover) and the user (verifier).
-}
-\label{fig:taxation_verification_proto}
-\end{figure}
-
-Similarly to the previous section, the necessary level of privacy is defined by
-Theorem~\ref{thm:tax-auth-proto}, due to the security properties of the Schnorr
-protocol.
-
-\begin{theorem}
-    For public values $h$ and $(y_i, l_i)$, the protocol
-    $\taxationAddressProto$ is an honest-verifier zero-knowledge argument of
-    knowledge of quantity $t_i$ satisfying condition (\ref{eq:owned-address-commit}).
-\end{theorem}
-
-Finally, we note that both $\taxationProto$ and $\taxationAddressProto$ can be
-turned into non-interactive zero-knowledge (NIZK) proofs of knowledge using the
-Fiat-Shamir transformation~\cite{C:FiaSha86} in the random oracle model.
+% Finally, we note that both protocols can be
+% turned into non-interactive zero-knowledge (NIZK) proofs of knowledge using the
+% Fiat-Shamir transformation~\cite{C:FiaSha86} in the random oracle model.

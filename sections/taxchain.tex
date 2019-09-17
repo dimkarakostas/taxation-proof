@@ -4,7 +4,7 @@ In this section we describe a ledger which enables taxation. Our mechanism is
 generic enough, such that existing distributed ledgers can incorporate it via a
 change in the consensus protocol.
 
-A taxable ledger aims to enable a user $\user$ to declare the amount of
+A taxable ledger enables a user $\user$ to declare the amount of
 crypto-assets they own to a taxation authority $\taxAuth$. In achieving this,
 we aim at a high level of privacy. Ideally, we want only the total amount of
 assets that $\user$ owns to be leaked to $\taxAuth$. However, given the
@@ -32,23 +32,19 @@ been accounted for.
 
 \paragraph{Design.}
 
-After the taxation period ends and all assets are frozen, $\taxAuth$ needs to
-provide a method for users to declare their assets. Additionally, there should
-be established a mechanism such that, when a user declares their assets, then
-the assets are unfrozen.
-
-When a taxpayer $\user$ wishes to move frozen assets (either unfreeze their own
-or receive frozen assets from a third party), they create a new key pair
-$\keypair_\user$ and the corresponding address $\address_\user$. Then they send
-$\address_\user$ to $\taxAuth$. Next, $\taxAuth$ certifies $\address_\user$, by
-issuing the signature $\sig = \algosign(\address_\user, \signkey_\taxAuth)$,
-and returns $\sig$ to $\user$. The tuple $\address_\user^{t} = \langle
-\address_\user, \sig \rangle$ is the ``taxation'' address which is used by the
-user to receive frozen assets. Additionally, $\taxAuth$ maintains a mapping of
-taxpayers to taxation addresses, \ie for every taxpayer $\user$ it holds a list
-$A_\user$ of all taxation addresses certified for $\user$ such as
-$\address_\user$.
-
+After the taxation period ends and all assets are frozen, $\taxAuth$ enables
+users to declare their assets, such that when a user declares their assets
+they are unfrozen. When a taxpayer $\user$ wishes to move frozen assets, \ie
+either to unfreeze their own or receive frozen assets from another party, they
+create a new key pair $\keypair_\user$ and corresponding address
+$\address_\user$. Then they send $\address_\user$ to $\taxAuth$. Next,
+$\taxAuth$ certifies $\address_\user$, by issuing the signature $\sig =
+\algosign(\address_\user, \signkey_\taxAuth)$, and returns $\sig$ to $\user$.
+The tuple $\address_\user^{t} = \langle \address_\user, \sig \rangle$ is the
+``taxation'' address which is used by the user to receive frozen assets.
+Additionally, $\taxAuth$ maintains a mapping of taxpayers to taxation
+addresses, \ie for every taxpayer $\user$ it holds a list $A_\user$ of all
+taxation addresses certified for $\user$ such as $\address_\user$.
 A transaction $\tau = \langle \address_{source}, \address_{dest}, x \rangle$
 which moves $x$ frozen assets from the address $\address_{source}$ is valid
 only if $\address_{dest} = \langle \address, \sig \rangle:
@@ -56,23 +52,21 @@ only if $\address_{dest} = \langle \address, \sig \rangle:
 will accept transactions that unfreeze assets only as long as said assets are
 transferred to a taxation address.
 
-Afterwards, $\taxAuth$ can find the amount of assets for which $\user$ should
-be taxed by computing $\assets_\user := \sum_{i=1}^{n} \balance(A_{\user}[i])$,
-where $n$ is the total number of $\user$'s taxation addresses.
-
-\emph{Note:} The above system can be extended for multiple taxation
-authorities, \eg to accommodate a list of countries. In that case, $\taxAuth$
-is a federation of authorities, each identified by a single key, and
-the list of keys for all taxation authorities is published instead of
-$\keypair_\taxAuth$. A taxpayer can then certify its address with the authority
-of their country of residence and thus declare their assets only to this
-authority.
+Finally, $\taxAuth$ can compute the amount of assets for which $\user$ should
+be taxed as $\assets_\user := \sum_{i=1}^{n} \balance(A_{\user}[i])$,
+$n$ being the total number of $\user$'s taxation addresses. We note that the
+system can be extended for multiple taxation authorities, \eg to accommodate a
+list of countries. If $\taxAuth$ is a federation of authorities, each
+identified by a single key, the list of keys for all taxation authorities is
+published instead of $\keypair_\taxAuth$. A taxpayer can then certify its
+address with the authority of their country of residence and thus declare their
+assets only to this authority.
 
 \paragraph{Challenges.}
 
 The first immediate effect of the taxation mechanism is the taxation addresses
 themselves. Standard pay-to-public-key-hash
-addresses\footnote{\url{https://en.bitcoin.it/wiki/Address}} are $25$ bytes.
+addresses are $25$ bytes.
 However, taxation addresses are significantly larger, due to the certification
 signature of $\taxAuth$; for instance, using ECDSA signatures in the DER format
 results in additional $72$ bytes, thus making taxation addresses $99$ bytes
@@ -84,29 +78,25 @@ Another important consideration regards the treatment of the frozen assets.
 Given the statute of limitations, it might be required that the tax authority
 $\taxAuth$ maintains its taxation private key, as well as the mapping for
 certified addresses per users, for a significant amount of time\footnote{For
-instance, in the US, the IRS would need to keep this data forever, since there
-is no statute of limitations in cases of false, fraudulent, or missing reports
-(cf.
-\url{https://tax.findlaw.com/tax-problems-audits/what-is-the-irs-statute-of-limitations-or-deadline-for-action-on-.html})}.
+instance, in the USA the IRS would need to keep this data forever, since there
+is no statute of limitations in cases of false, fraudulent, or missing reports:
+\url{https://tax.findlaw.com/tax-problems-audits/what-is-the-irs-statute-of-limitations-or-deadline-for-action-on-.html}}.
 This might introduce additional costs in the log keeping that $\taxAuth$ needs
 to do.
 
-\paragraph{Applying taxation on Bitcoin.}
+\paragraph{A taxable Bitcoin.}
 
-In order to showcase our taxable ledger, we now introduce a variation of
-Bitcoin which enables taxation. The taxable Bitcoin is initially parameterized
-by the public key of the taxation authority $\keypair_\taxAuth$, which is part
-of the ledger's genesis block\footnote{For information on Bitcoin's genesis
-block we refer to \url{https://en.bitcoin.it/wiki/Genesis_block}}. This key is
+We showcase our design via a taxable variation of Bitcoin, $\taxBtc$. $\taxBtc$
+is initially parameterized by the public key of the taxation authority
+$\keypair_\taxAuth$, which is part of the ledger's genesis block. This key is
 used to both certify taxation addresses; in order to update it and use a new
 key $\keypair_\taxAuth'$, $\taxAuth$ simply signs $\verifykey_\taxAuth'$ with
-$\signkey_\taxAuth$ and publishes the new signed key on the ledger.
+$\signkey_\taxAuth$ and publishes it on the ledger.
 
-We assume that a taxation period lasts $52560$ blocks, which is roughly $1$
-calendar year\footnote{A Bitcoin block is created on average every $10$
-minutes.}; we call the block $52560$ and its multiples ``taxation'' blocks.
-Therefore, when a taxation block is issued, all \emph{non-taxation} addresses
-which control bitcoins are frozen.
+We assume that a taxation period lasts $52560$ blocks, \ie roughly $1$ calendar
+year, so block $52560$ and its multiples are ``taxation'' blocks.  When a
+taxation block is issued, all \emph{non-taxation} addresses which control
+$\taxBtc$ are frozen.
 
 The freezing introduces a number of complications which need to be addressed.
 First, the liveness property (cf.~\cite{EC:GarKiaLeo15}) of a transaction may
@@ -121,7 +111,7 @@ block, $\taxAuth$ needs to pick only one and certify it; afterwards, the
 certified taxation block cannot be reverted, thus acting as a ``checkpoint'' in
 the chain.
 
-In order to spend bitcoins from a frozen address $\address \in A$, the user
+In order to spend $\taxBtc$ from a frozen address $\address \in A$, the user
 issues a transaction $\transaction = \langle \address, \address', \assets
 \rangle$. $\transaction$ is valid if, assuming $\address' = \langle
 \hat{\address}, \sig \rangle$, it holds that $\algoverify(\hat{\address}, \sig,
@@ -131,9 +121,9 @@ rejected by the miners. The address $\hat{\address}$ can be any standard
 Bitcoin address, therefore in order to spend from it the user can issue a
 regular Bitcoin transaction.
 
-We observe that the taxable Bitcoin covers the desiderata proposed in
+We observe that $\taxBtc$ covers the desiderata proposed in
 Section~\ref{subsec:desiderata}. Regarding privacy, although $\taxAuth$ can
-deanonymize the set of Bitcoin users at a specific point in time, \ie when the
+de-anonymize the set of $\taxBtc$ users at a specific point in time, \ie when the
 system freezes, it does not have any advantage during all other periods, when
 the users employ standard Bitcoin addresses and transactions. Additionally,
 similarly to standard Bitcoin addresses, third parties cannot obtain

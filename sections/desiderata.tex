@@ -1,4 +1,4 @@
-\section{The Taxation Mechanism}\label{sec:taxation}
+\section{Overview of Cryptocurrency Taxation}\label{sec:taxation}
 
 In every cryptocurrency system, a user $\user$ manages their assets via
 \emph{addresses}. Every address $\address$ is associated with a key pair
@@ -25,7 +25,7 @@ controls some assets $\theta$ in it. As long as $\address$ is kept hidden, \ie
 Alice does not use it, it is impossible for any party to identify or prove that
 Alice owns $\address$ and, consequently, $\theta$.
 
-Now assume that, at some future point, Alice issues a transaction $\tau$ which
+Now assume that, in the future, Alice issues a transaction $\tau$ which
 sends $\theta$ assets from $\address$ to Bob. If Bob suspects that Alice evaded
 taxation for the $\theta$ assets, they might want to report them to the
 taxation authority $\taxAuth$ for inspection, \ie they would form a complaint
@@ -69,17 +69,13 @@ taxation period. Finally, any mechanism should aim to minimize the amount of
 (additional) data which are published to the ledger, since the storage cost in
 distributed ledgers is a core measure of efficiency.
 
-In conclusion, our desiderata when designing a taxation mechanism are
-summarized as follows:
+In conclusion, the desiderata of a taxation mechanism are as follows:
 \begin{itemize}
-    \item \textbf{High level of privacy}:
-        \begin{itemize}
-            \item The tax authority $\taxAuth$ should only learn at most the
-                total amount of assets owned per user at the end of a tax year.
-            \item No information about the amount of assets that a user owns
-                should be leaked to any party other than $\taxAuth$ (excluding
-                the information already leaked by the ledger itself).
-        \end{itemize}
+    \item \textbf{High level of privacy}: the tax authority $\taxAuth$ should
+        at most learn the total amount of assets owned per user at the end of a
+        tax year, and no additional information should be leaked to any party
+        other than $\taxAuth$, apart from the information already leaked by
+        the ledger.
     \item \textbf{Unobstructed operation}: the introduction of a taxation
         mechanism should not introduce any time period over which the (tax
         compliant) users are unable to use their assets.

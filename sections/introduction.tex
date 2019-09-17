@@ -25,13 +25,13 @@ However, due to the fact that the legal framework has been trailing the
 technological advancements, in more than one occasions established
 organizations have been hesitant or abstained from using the new blockchain
 technology\footnote{A primary example is the Electronic Frontier Foundation's
-step back in accepting Bitcoin as a donation option in 2011, due to ``complex
-legal issues'', as explained in the following blog post:
+step back in accepting Bitcoin as a donation option in 2011 due to ``complex
+legal issues'', as detailed in the following article:
 \url{https://www.eff.org/deeplinks/2011/06/eff-and-bitcoin}}. It is thus clear
 that, in order for --- decentralized --- blockchains to be widely used, proper
-tools should be developed that will allow enterprises in this space to comply
-with the changes in the legal framework, while retaining the much needed
-properties that technology has to offer, such as privacy.
+tools should be developed that allow asset owners and custodians to comply with
+the changes in the legal framework, while retaining the much needed properties,
+like privacy, that the technology offers.
 
 Crypto-assets have drawn a lot of attention from the tax authorities recently,
 especially after the surge in Bitcoin's price during 2017. Additionally,
@@ -42,30 +42,20 @@ as of 2018 require exchanges to register with
 it~\cite{securities2018statement}, as well as the Australian tax office, which
 applies the trading stock rules on exchanges~\cite{tax2019statement}.
 
-\paragraph{Our contributions.}
-
-In this paper we aim to initiate a technical discussion on the taxation of
-cryptocurrency. First, we explore the necessary properties that such mechanism
-should offer, in order to comply with the information needed by the taxation
-authority. Our design aims to maintain the best level of privacy possible, both
-for the exchanges and their users, as well as minimize the level of trust that
-needs to be assumed of the taxation authority. Therefore, we next establishing
-the core limitations of every such taxation mechanism.
-
-Second, our paper introduces a taxation design for enterprises which is in line
-with the existing designs and can be directly applied on top of systems like
-Bitcoin. Our design is based on Provisions~\cite{CCS:DBBCB15}, a proof of
-solvency mechanism for Bitcoin exchanges, which we extend by utilizing
-well-known cryptographic primitives in order to allow enterprises to declare
-their assets without necessarily disclosing their entire transaction history.
-Importantly, we describe how a tax authority can use our scheme to identify
-whether an enterprise fails to declare some of its assets.
-
-Third, we describe a cryptocurrency which enforces the taxpayers to declare
-their crypto-assets to the tax authority in a privacy-preserving manner. Our
-core idea is to render the assets unusable unless the user declares them for
-taxation. Naturally, this is a radical change which would be enforced on
-existing systems only via a major update, \ie a hard fork. Interestingly, our
-mechanism allows a level of privacy at least as good as Bitcoin-like systems,
-\ie a user reveals to the tax authority \emph{only} the total amount of assets
-they control, without leaking their transaction history.
+Our work aims to accelerate the technical discussion on cryptocurrency
+taxation.  We explore the needed properties and limitations of such mechanisms,
+aiming to maintain the best level of privacy possible, both for the exchanges
+and their users, as well as minimize the level of trust that needs to be
+assumed of the taxation authority. Next, we describe a ledger which allows
+the taxpayers to declare their crypto-assets to in a
+privacy-preserving manner. Our core idea is to freeze the assets until they are
+taxed, a radical change which can either be integrated in new systems or
+enforced on existing systems via a hard fork. Notably, the privacy of our
+mechanism is at least as good as Bitcoin-like systems. Finally, our paper
+introduces a taxation scheme for enterprises, which is directly applicable on
+systems like Bitcoin. Our design is based on Provisions~\cite{CCS:DBBCB15}, a
+proof of solvency mechanism for Bitcoin exchanges, which we extend in order to
+allow enterprises to declare their assets without necessarily disclosing their
+entire transaction history. Importantly, we describe how a tax authority can
+use our scheme to identify whether an enterprise fails to declare some of its
+assets.

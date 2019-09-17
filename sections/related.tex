@@ -5,16 +5,26 @@ of work. The first proof of solvency scheme for Bitcoin exchanges was proposed
 by Maxwell~\cite{wilcox2014proving}. However, this scheme leaks the total
 amount of both assets and liabilities of the exchange, while, more importantly,
 enabling an attack that allows the exchange to hide assets, as detailed by
-Doerner \etal in Zeroledge~\cite{doernerzeroledge}; this work also proposed a
-proof system by which exchanges can prove properties about their holdings
-without revealing sensitive information.
+Doerner \etal in Zeroledge~\cite{doernerzeroledge}. Zeroledge also proposed a
+proof system with which exchanges can prove properties about their holdings
+without revealing sensitive information. Our taxation mechanism for enterprises
+is based on Provisions by Dagher \etal~\cite{CCS:DBBCB15}, a
+privacy-preserving proof of solvency mechanism for Bitcoin exchanges. Based on
+a number of Sigma protocols, Provisions allows exchanges to prove solvency in
+zero-knowledge, \ie without the need to reveal the addresses or the amount of
+assets that it controls. Similarly, Agrawal \etal~\cite{C:AgrGanMoh18} describe
+a proof of solvency using SNARKS, thus achieving better performance compared to
+Provisions, although assuming a trusted setup. Importantly, this work enables
+proof of solvency for not only pay-to-public-key but also
+pay-to-public-key-hash addresses, which is the most common type of addresses.
+Our work describes an extension to Provisions, although it can also be applied
+to Agrawal \etal
 
-The work upon which we build is Provisions~\cite{CCS:DBBCB15} by Dagher \etal
-Provisions is a privacy-preserving proof of solvency for Bitcoin exchanges.
-Based on a number of Sigma protocols, Provisions allows exchanges to prove
-solvency in zero-knowledge, \ie without the need to reveal the addresses or the
-amount of assets that it controls. Additionally, Agrawal
-\etal~\cite{C:AgrGanMoh18} describe a proof of solvency using SNARKS, thus
-achieving better performance compared to Provisions, although assuming a
-trusted setup. Our work provides an extension to Provisions, although it can be
-easily applied to the work of Agrawal \etal as well.
+A holistic approach regarding auditable ledgers was taken in the design of
+zkLedger by Narula \etal~\cite{EPRINT:NarVasVir18}. The taxable ledger of
+Section~\ref{sec:taxchain} also defines a ledger which by design enables audits
+and taxation, as opposed to the approach of
+Section~\ref{sec:provisions-extension}, which attempts to apply a mechanism on
+top of existing systems. However, our approach is much simpler than zkLedger
+regarding the changes needed in existing designs in order to accommodate
+taxation.
