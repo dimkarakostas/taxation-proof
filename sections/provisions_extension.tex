@@ -42,7 +42,6 @@ three protocols:
 % that the exchange has included his/her deposits in the collective proof.
 % Finally, the proof of solvency proves that the exchange's assets are equal or
 % surpass its liabilities.
-
 Our work is only interested in the assets owned by the exchange, thus we focus
 on the proof of assets. All proofs are considered under a group
 $G$ of prime order $q$ with fixed public generators $g, h$. The proof of assets
@@ -51,27 +50,22 @@ considers the following:
     \item $\text{\textbf{PK}} = \{y_1, \dots, y_n \}$: the (anonymity) set of public keys;
     \item $s_i$: a bit such that, if the exchange controls $y_i$, \ie if it possesses the private key of $y_i$, then $s_i = 1$, otherwise $s_i = 0$;
     \item $\balance(y_i)$: the amount of assets that the address corresponding to $y_i$ controls;
-    \item $\assets = \sum_{i = 1}^n s_i \cdot \balance(y_i)$: the total amount of assets that the exchange controls;
+    \item $\assets = \sum_{i = 1}^n s_i \cdot \balance(y_i)$: the amount of assets that the exchange controls;
     \item $b_i = g^{\balance(y_i)}$: a commitment to the balance of $y_i$.
 \end{itemize}
 
-The exchange publishes two Pedersen commitments. First, it commits to each $s_i
-\cdot \balance(y_i)$:
+The exchange publishes the Pedersen commitments for each $s_i, s_i \cdot
+\balance(y_i)$:
 \begin{align}
-    p_i = b_i^{s_i} \cdot h^{v_i} = g^{\balance(y_i) \cdot s_i} \cdot h^{v_i} \label{eq:balance-commit}
-\end{align}
-where $v_i \in \mathbb{Z}_q$ is chosen at random.
-Second, it commits to each $s_i$:
-\begin{align}
+    p_i = b_i^{s_i} \cdot h^{v_i} = g^{\balance(y_i) \cdot s_i} \cdot h^{v_i} \label{eq:balance-commit} \\
     l_i = y_i^{s_i}h^{t_i} \label{eq:ownership-commit} \\
     l_i = g^{\hat{x}_i}h^{t_i} \label{eq:privkey-commit}
 \end{align}
-where $x_i$ is the private key for $y_i$, $\hat{x}_i = x_i \cdot s_i$, and $t_i
-\in \mathbb{Z}_q$ is a random value.
-
-The proof is built via a $\Sigma$-protocol, which allows the exchange to prove
-knowledge of values $s_i, v_i, t_i, \hat{x}_i$ for every $i \in [1, n]$ such
-that conditions (\ref{eq:balance-commit}), (\ref{eq:ownership-commit}), and
+where $v_i, t_i \in \mathbb{Z}_q$ are chosen at random,
+$x_i$ is the private key for $y_i$, and $\hat{x}_i = x_i \cdot s_i$.
+The exchange proves knowledge of values $s_i, v_i, t_i, \hat{x}_i$ for every $i
+\in [1, n]$ via a $\Sigma$-protocol, such that conditions
+(\ref{eq:balance-commit}), (\ref{eq:ownership-commit}), and
 (\ref{eq:privkey-commit}) are satisfied.
 % the Provisions' proof of assets
 % protocol is included in Appendix~\ref{subsec:provisions-assets-proof} for
@@ -79,19 +73,19 @@ that conditions (\ref{eq:balance-commit}), (\ref{eq:ownership-commit}), and
 
 \paragraph{The Asset Taxation Protocol.}\label{subsec:tax-authority-proto}
 
-The first part of our mechanism is executed between $\exchange$ and $\taxAuth$.
-Specifically, $\taxAuth$ requests the total amount of assets that $\exchange$
-controls, \ie the value $\assets$. Next, $\taxAuth$ verifies that $\exchange$'s
+% The first part of our mechanism is executed between $\exchange$ and $\taxAuth$.
+First, $\taxAuth$ requests the total amount of assets that $\exchange$
+controls, \ie the value $\assets$, to verify that $\exchange$'s
 commitments correspond to $\assets$. We observe that:
 \begin{align}
     Z_\assets = \prod_{i = 1}^n p_i = g^{\assets} \cdot h^v \label{eq:assets}
 \end{align}
-for $v = {\sum_{i = 1}^n v_i}$, is a --- publicly computable --- Pedersen
+for $v = {\sum_{i = 1}^n v_i}$, is a (publicly computable) Pedersen
 commitment to the exchange's assets. Given that $\taxAuth$ knows $\assets$, the
 exchange needs only to prove knowledge of a value $v$, such that condition
-(\ref{eq:assets}) is satisfied. This can be achieved via a standard Schnorr
-protocol~\cite{C:Schnorr89}, which ensures that $v$ is not leaked to $\taxAuth$
-and that $\exchange$ cannot forge a proof.
+(\ref{eq:assets}) is satisfied. This is achieved via a standard Schnorr
+protocol~\cite{C:Schnorr89} which ensures that $v$ is not leaked to $\taxAuth$.
+% and that $\exchange$ cannot forge a proof.
 
 % Thus, $\exchange$ and $\taxAuth$ run the Schnorr protocol defined in
 % Figure~\ref{fig:taxation_auth_proto}.

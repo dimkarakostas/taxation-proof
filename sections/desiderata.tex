@@ -1,21 +1,19 @@
 \section{Overview of Cryptocurrency Taxation}\label{sec:taxation}
 
-In every cryptocurrency system, a user $\user$ manages their assets via
-\emph{addresses}. Every address $\address$ is associated with a key pair
-$\keypair$, such that the private key $\signkey$ is used to claim ownership of
-the assets, \eg by signing special messages; in Bitcoin, as well as most
-cryptocurrency systems, $\address = \mathsf{H}(\verifykey)$ for some hash
-function $\mathsf{H}$. Assuming $[\address_1, \dots, \address_n]$ is the list
-of all addresses that $\user$ controls, the total amount of assets that it owns
-is $\assets = \sum_{i=1}^n \balance(\address_i)$, where $\balance(\address)$ is
-the amount of assets controlled by the address $\address$; the balance of every
-address is publicly available on the blockchain.
-
-Our goal is to design a mechanism that enables taxation, while retaining as
-much privacy as possible. In every taxation system, a basic requirement is that
-the user $\user$ declares its assets to the taxation authority $\taxAuth$.
-Ideally, this information, \ie $\assets$, is the only information that is
-leaked to $\taxAuth$, while ensuring the user does not ``hide'' any assets.
+Our goal is to design a taxation mechanism which retains as much privacy as
+possible. A basic requirement is that the user $\user$ declares its assets to
+the taxation authority $\taxAuth$.  Specifically, in every cryptocurrency
+system, a user $\user$ manages their assets via \emph{addresses}. Each address
+$\address$ is associated with a key pair $\keypair$, such that the private key
+$\signkey$ is used to claim ownership of the assets, \eg by signing special
+messages; in Bitcoin, as well as most cryptocurrency systems, $\address =
+\mathsf{H}(\verifykey)$ for some hash function $\mathsf{H}$. Assuming
+$[\address_1, \dots, \address_n]$ is the list of all addresses that $\user$
+controls, the total amount of assets that it owns is $\assets = \sum_{i=1}^n
+\balance(\address_i)$, where $\balance(\address)$ is the (publicly available)
+amount of assets controlled by $\address$.  Ideally, this information, \ie
+$\assets$, is the only information that is leaked to $\taxAuth$, while ensuring
+the user does not ``hide'' any assets.
 
 \paragraph{Limitations.}\label{subsec:limitations}
 
@@ -24,13 +22,11 @@ that Alice tax evades, \ie creates a secret, undeclared address $\address$ and
 controls some assets $\theta$ in it. As long as $\address$ is kept hidden, \ie
 Alice does not use it, it is impossible for any party to identify or prove that
 Alice owns $\address$ and, consequently, $\theta$.
-
 Now assume that, in the future, Alice issues a transaction $\tau$ which
 sends $\theta$ assets from $\address$ to Bob. If Bob suspects that Alice evaded
 taxation for the $\theta$ assets, they might want to report them to the
 taxation authority $\taxAuth$ for inspection, \ie they would form a complaint
 that Alice owns $\address$ and tax evades via it.
-
 When $\taxAuth$ receives Bob's complaint, it faces a problem. Even if
 $\taxAuth$ has proof that Alice did not declare $\address$ for taxation, it
 further needs proof that $\address$ is in fact controlled by Alice, \ie a proof
@@ -41,7 +37,6 @@ other words, $\taxAuth$ needs to distinguish between two scenarios:
     \item Alice controls $\address$ and tax evades, or
     \item Bob is lying about Alice owning $\address$.
 \end{inparaenum}
-
 Observe that, in the first scenario, Bob \emph{does} know that $\address$ is
 controlled by Alice. However, due to the pseudonymity of cryptocurrency
 systems, the transaction $\tau$ is not sufficient to prove this fact. Instead,

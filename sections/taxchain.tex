@@ -1,27 +1,25 @@
 \section{A Taxable Ledger}\label{sec:taxchain}
 
-In this section we describe a ledger which enables taxation. Our mechanism is
-generic enough, such that existing distributed ledgers can incorporate it via a
-change in the consensus protocol.
-
-A taxable ledger enables a user $\user$ to declare the amount of
-crypto-assets they own to a taxation authority $\taxAuth$. In achieving this,
-we aim at a high level of privacy. Ideally, we want only the total amount of
-assets that $\user$ owns to be leaked to $\taxAuth$. However, given the
-underlying structure of the ledger, it is possible that additional information
-is leaked; \eg in a pseudonymous setting like Bitcoin, one or more of the
-addresses might be linked to the user who owns them.
+In this section we describe a ledger which enables taxation by design. Our
+mechanism is generic, such that existing distributed ledgers can incorporate it
+via simple changes in the consensus protocol. A taxable ledger enables a user
+$\user$ to declare the amount of crypto-assets they own to a taxation authority
+$\taxAuth$. In achieving this, we aim at a high level of privacy. Ideally, we
+want only the total amount of assets that $\user$ owns to be leaked to
+$\taxAuth$. However, given the underlying structure of the ledger, it is
+possible that additional information is leaked; \eg in a pseudonymous setting
+like Bitcoin, one or more of the addresses might be linked to the user who owns
+them.
 
 \paragraph{Assumptions.}
 
-We assume that the tax authority $\taxAuth$ has a list $P$ of all taxpayers.
+We assume that $\taxAuth$ has a list $P$ of all taxpayers.
 Additionally, we assume the existence of taxation periods which last $d$ time;
 \eg a taxation period lasts $1$ year, at the end of which the taxpayers are
 required to declare their assets. Naturally, both assumptions are in line with
 how real-world tax systems operate. Finally, we assume a key
 $\keypair_\taxAuth$ which is controlled by and identifies $\taxAuth$ and is
 published on the ledger.
-
 The core idea behind our scheme is to freeze assets which are not accounted
 for. In particular, assume a taxation period $d_i$. At the end of the taxation
 period, all users are required to declare their assets with $\taxAuth$.
@@ -51,7 +49,6 @@ only if $\address_{dest} = \langle \address, \sig \rangle:
 \algoverify(\address, \sig, \verifykey_\taxAuth) = 1$. Therefore, the miners
 will accept transactions that unfreeze assets only as long as said assets are
 transferred to a taxation address.
-
 Finally, $\taxAuth$ can compute the amount of assets for which $\user$ should
 be taxed as $\assets_\user := \sum_{i=1}^{n} \balance(A_{\user}[i])$,
 $n$ being the total number of $\user$'s taxation addresses. We note that the
@@ -73,16 +70,15 @@ results in additional $72$ bytes, thus making taxation addresses $99$ bytes
 long. Fortunately, taxation addresses are expected to be used, in order to
 declare the crypto-assets, only once, thus the overall storage cost should not
 be significant.
-
 Another important consideration regards the treatment of the frozen assets.
-Given the statute of limitations, it might be required that the tax authority
+Given the statute of limitations, it might be required that
 $\taxAuth$ maintains its taxation private key, as well as the mapping for
-certified addresses per users, for a significant amount of time\footnote{For
+certified addresses per users, for a significant period\footnote{For
 instance, in the USA the IRS would need to keep this data forever, since there
 is no statute of limitations in cases of false, fraudulent, or missing reports:
 \url{https://tax.findlaw.com/tax-problems-audits/what-is-the-irs-statute-of-limitations-or-deadline-for-action-on-.html}}.
-This might introduce additional costs in the log keeping that $\taxAuth$ needs
-to do.
+% This might introduce additional costs in the log keeping that $\taxAuth$ needs
+% to do.
 
 \paragraph{A taxable Bitcoin.}
 
@@ -92,7 +88,6 @@ $\keypair_\taxAuth$, which is part of the ledger's genesis block. This key is
 used to both certify taxation addresses; in order to update it and use a new
 key $\keypair_\taxAuth'$, $\taxAuth$ simply signs $\verifykey_\taxAuth'$ with
 $\signkey_\taxAuth$ and publishes it on the ledger.
-
 We assume that a taxation period lasts $52560$ blocks, \ie roughly $1$ calendar
 year, so block $52560$ and its multiples are ``taxation'' blocks.  When a
 taxation block is issued, all \emph{non-taxation} addresses which control
