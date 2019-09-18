@@ -72,15 +72,17 @@ In conclusion, the desiderata of a taxation mechanism are as follows:
         detectable by $\taxAuth$ or prohibited by the taxation mechanism.
     \item \textbf{High level of privacy}: the tax authority $\taxAuth$ should
         at most learn the total amount of assets owned per user at the end of a
-        tax year, and no additional information should be leaked to any party
-        other than $\taxAuth$, apart from the information already leaked by
-        the ledger.
+        tax year; this information should be leaked only to $\taxAuth$ and no
+        additional information should be leaked to any other party, apart from
+        the information already leaked by the ledger.
     \item \textbf{Unobstructed operation}: the introduction of a taxation
-        mechanism should not introduce any time period over which the (tax
-        compliant) users are unable to use their assets.
+        mechanism should not introduce any time period over which the tax
+        compliant users are unable to use their assets.
     \item \textbf{Low performance overhead}: the taxation mechanism should not
-        introduce a major performance overhead (\ie computation and storage).
-    \item \textbf{Balanced performance load}: the performance overhead should
-        be spread over a period of time, rather than result in computation
-        spikes.
+        introduce a major performance overhead, in terms of computation from
+        the users and $\taxAuth$ and storage requirements on the ledger or
+        locally.
+    \item \textbf{Balanced load}: the computation and storage overhead of
+        taxation should be spread over a period of time, rather than
+        result in computation spikes.
 \end{itemize}
