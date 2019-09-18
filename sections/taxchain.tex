@@ -1,15 +1,13 @@
 \section{A Taxable Ledger}\label{sec:taxchain}
 
-In this section we describe a ledger which enables taxation by design. Our
-mechanism is generic, such that existing distributed ledgers can incorporate it
-via simple changes in the consensus protocol. A taxable ledger enables a user
-$\user$ to declare the amount of crypto-assets they own to a taxation authority
-$\taxAuth$. In achieving this, we aim at a high level of privacy. Ideally, we
-want only the total amount of assets that $\user$ owns to be leaked to
-$\taxAuth$. However, given the underlying structure of the ledger, it is
-possible that additional information is leaked; \eg in a pseudonymous setting
-like Bitcoin, one or more of the addresses might be linked to the user who owns
-them.
+In this section we describe a ledger with a built-in taxation mechanism. Our
+design is generic enough for existing ledgers to incorporate it via minimal
+changes in consensus. A taxable ledger enforces a user $\user$ to declare the
+amount of crypto-assets they own to a taxation authority $\taxAuth$, elseways
+the assets are unusable. In achieving this, we aim to leak to $\taxAuth$ only
+the total amount of assets that $\user$ owns, although additional information
+might be leaked, \eg in a pseudonymous setting like Bitcoin where addresses
+might be linked to the user who controls them.
 
 \paragraph{Assumptions.}
 
@@ -93,7 +91,7 @@ year, so block $52560$ and its multiples are ``taxation'' blocks.  When a
 taxation block is issued, all \emph{non-taxation} addresses which control
 $\taxBtc$ are frozen.
 
-The freezing introduces a number of complications which need to be addressed.
+Freezing complicates the system in a number of ways.
 First, the liveness property (cf.~\cite{EC:GarKiaLeo15}) of a transaction may
 be affected. For instance, a transaction which spends from a non-taxation
 address will be rejected if it is not included in a block before the freezing

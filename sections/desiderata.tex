@@ -47,10 +47,11 @@ would effectively incriminate themselves.
 
 \paragraph{Desiderata.}\label{subsec:desiderata}
 
-Although enabling taxation is a step forward, it is crucial that we retain as
-many good features of existing cryptocurrency systems as possible. One such
-core feature is transaction privacy. Bitcoin-like ledgers enhance privacy via
-the pseudonymous nature of addresses, while designs like
+The core requirement of a taxation mechanism is to enforce taxpayers to declare
+their assets, \ie to prohibit tax evasion.  However, it is important that we
+retain as many good features of existing cryptocurrency systems as possible.
+One such core feature is transaction privacy. Bitcoin-like ledgers enhance
+privacy via the pseudonymous nature of addresses, while designs like
 Zerocash~\cite{SP:BCGGMT14} utilize zero-knowledge to achieve full anonymity of
 transactions, \ie hiding the sender, recipient, and amount of each individual
 transaction. Our aim is to retain at least Bitcoin levels of privacy by
@@ -66,6 +67,9 @@ distributed ledgers is a core measure of efficiency.
 
 In conclusion, the desiderata of a taxation mechanism are as follows:
 \begin{itemize}
+    \item \textbf{Tax evasion prevention}: tax evasion, \ie failure of a user
+        $\user$ to declare the amount of assets they own, should be either
+        detectable by $\taxAuth$ or prohibited by the taxation mechanism.
     \item \textbf{High level of privacy}: the tax authority $\taxAuth$ should
         at most learn the total amount of assets owned per user at the end of a
         tax year, and no additional information should be leaked to any party
