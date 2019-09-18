@@ -1,16 +1,25 @@
 \begin{abstract}
-    A major bottleneck against the widespread adoption and usage of
-    decentralized blockchain systems is the distance between the needs of the
-    enterprises and the regulatory bodies. A primary example of this tension is
-    the trade-off between user privacy and the taxation of cryptocurrency
-    assets. In this work we discuss the problem of enabling taxation mechanisms
-    in cryptocurrency systems. We identify the required properties and
-    limitations of such mechanisms and propose two designs.  First, we describe
-    a ledger which enables taxation by default, which is achieved via only
-    small changes in existing designs.  Second, we provide an extension which
-    enables enterprises to declare their assets and can be built on top of most
-    existing cryptocurrencies. Both solutions retain a high level of privacy,
-    by ensuring that the only information which is leaked to the taxation
-    authority, in addition to information already leaked by the underlying
-    ledger, is the total amount of a user's assets.
+%    A major bottleneck against the widespread adoption and usage of
+%    decentralized blockchain systems is the distance between the needs of the
+%    enterprises and the regulatory bodies. A primary example of this tension is
+%    the trade-off between user privacy and the taxation of cryptocurrency
+%    assets.
+In this work we discuss the problem of facilitating taxation mechanisms
+    in cryptocurrency systems. We identify the required properties of such mechanisms
+    including preserving privacy and tax evasion protection and outline the
+    challenges of implementing mechanisms in existing cryptocurrencies.  
+    We  describe two techniques that such mechanisms can be realised. First,  we describe
+    a ledger which enables taxation as a built-in feature. This is achieved via only
+    small changes in existing ledger designs.  Second, we describe an extension 
+    mechanism which  can be built on top of most
+    existing cryptocurrencies without any modification in the underlying ledger.  
+    Both solutions provide a high level of privacy
+     ensuring that no other information 
+        (beyond the information which is already leaked 
+    by the underlying
+    ledger)  
+    is leaked to any party except 
+    for a
+    taxation authority, 
+     which learns the total amount of a user's assets that are to be taxed. 
 \end{abstract}
