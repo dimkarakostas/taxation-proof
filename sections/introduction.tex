@@ -1,60 +1,56 @@
 \section{Introduction}\label{sec:introduction}
 
-Decentralized blockchains face a number of pressing challenges.
-Scalability, interoperability, and governance are only a few of the concepts
-that researchers have been working on during the decade since 2009, when
-Bitcoin~\cite{nakamoto2008bitcoin} first launched. Nevertheless, technical
-issues, although immensely interesting, are not the only challenges that such
-systems face. A common theme that arises in discussions and articles regarding
-the future of decentralized blockchains is \emph{adoption}.
-Mainstream adoption has been almost ubiquitously hailed as the way for
-blockchain systems to mature and, potentially, appreciate in value. Indeed, as
-more people build on and use decentralized ledgers, it is expected that more
-research opportunities will arise, while helping researchers and entrepreneurs
-alike. Eventually, adoption should allow the scientific knowledge and
-technological standards of distributed ledgers to mature faster and better.
+Decentralized blockchains face a number of pressing challenges.  Scalability,
+interoperability, and governance are only a few of the concepts that
+researchers have been working on during the past decade, since
+Bitcoin~\cite{nakamoto2008bitcoin} first launched. Nevertheless, although
+immensely interesting, technical issues are not the only challenges that such
+systems face. A common topic of heated discussions around the future of
+decentralized blockchains is \emph{adoption}.  Mainstream adoption has been
+almost ubiquitously hailed as the way for blockchain systems to mature and,
+potentially, appreciate in value. Indeed, as more people build on and use
+decentralized ledgers, it is expected that more research opportunities will
+arise, helping researchers and entrepreneurs alike evolve the blockchain space.
+Eventually, adoption will allow the scientific knowledge and technological
+standards of distributed ledgers to mature faster and better.
 
 A core element regarding adoption of every new technology, like blockchains, is
 compliance with the existing regulatory frameworks. As early as 2010, questions
-on how, or even if, Bitcoin can be a legal assets have sparked a heated
-discussion\footnote{One of the first such discussions is available at Eric
-Roberts' webpage:
+on how, or even if, Bitcoin can be a legal investment product have sparked a
+heated discussion\footnote{One of the first such investigations is available at
+Eric Roberts' webpage:
 \url{https://cs.stanford.edu/people/eroberts/courses/cs181/projects/2010-11/Bitcoins/should-bitcoin-be-legal.html}}.
 However, due to the fact that the legal framework has been trailing the
-technological advancements, in more than one occasions established
-organizations have been hesitant or abstained from using the new blockchain
-technology\footnote{A primary example is the Electronic Frontier Foundation's
-step back in accepting Bitcoin as a donation option in 2011 due to ``complex
-legal issues'', as detailed in the following article:
+technological advancements, established organizations are often hesitant to
+adopt or abstain altogether from using the new blockchain technology\footnote{A
+primary example is the Electronic Frontier Foundation's step back in accepting
+Bitcoin as a donation option in 2011 due to ``complex legal issues'', as
+detailed in the following article:
 \url{https://www.eff.org/deeplinks/2011/06/eff-and-bitcoin}}. It is thus clear
 that, in order for --- decentralized --- blockchains to be widely used, proper
 tools should be developed that allow asset owners and custodians to comply with
-the changes in the legal framework, while retaining the much needed properties,
-like privacy, that the technology offers.
+changes in the legal framework while retaining much needed properties, like
+privacy, that the technology offers. Indeed, crypto-assets have drawn a lot of
+attention from tax authorities recently, especially after the surge in
+Bitcoin's price during 2017.  Exchanges, being the primary platforms for
+trading cryptocurrency and shaping the market's prices, have been put on the
+spot by authorities across the globe, \eg the U.S. Securities and Exchange
+Commission, which as of 2018 requires exchanges to register with
+it~\cite{securities2018statement}, and the Australian tax office, which applies
+trading stock rules on exchanges~\cite{tax2019statement}.
 
-Crypto-assets have drawn a lot of attention from the tax authorities recently,
-especially after the surge in Bitcoin's price during 2017. Additionally,
-exchanges, being the primary platforms for trading cryptocurrency and shaping
-the market's prices, have been put on the spot by authorities across the
-globe. Primary examples are the U.S. Securities and Exchange Commission, which
-as of 2018 require exchanges to register with
-it~\cite{securities2018statement}, as well as the Australian tax office, which
-applies the trading stock rules on exchanges~\cite{tax2019statement}.
-
-Our work aims to accelerate the technical discussion on cryptocurrency
-taxation.  We explore the needed properties and limitations of such mechanisms,
-aiming to maintain the best level of privacy possible, both for the exchanges
-and their users, as well as minimize the level of trust that needs to be
-assumed of the taxation authority. Next, we describe a ledger which allows
-the taxpayers to declare their crypto-assets to in a
-privacy-preserving manner. Our core idea is to freeze the assets until they are
-taxed, a radical change which can either be integrated in new systems or
-enforced on existing systems via a hard fork. Notably, the privacy of our
-mechanism is at least as good as Bitcoin-like systems. Finally, our paper
-introduces a taxation scheme for enterprises, which is directly applicable on
-systems like Bitcoin. Our design is based on Provisions~\cite{CCS:DBBCB15}, a
-proof of solvency mechanism for Bitcoin exchanges, which we extend in order to
-allow enterprises to declare their assets without necessarily disclosing their
-entire transaction history. Importantly, we describe how a tax authority can
-use our scheme to identify whether an enterprise fails to declare some of its
-assets.
+Our work aims to accelerate the technical discussion needed to incorporate
+taxation in decentralized blockchain systems. We explore the properties and
+limitations of taxation mechanisms, aiming to implement secure taxation while
+maintaining the best level of privacy possible and minimizing the level of
+trust put in the taxation authority. First, we describe a ledger which compels
+taxpayers to tax their crypto-assets in a privacy-preserving manner, our core
+idea being to freeze the assets until they are taxed. Such mechanism can either
+be built in new systems or enforced via a hard fork, \ie small but decisive
+changes in deployed consensus protocols, and offers privacy which is at least
+as good as Bitcoin-like systems. Second, our paper introduces a taxation scheme
+directly applicable on existing systems. Our design is based on
+Provisions~\cite{CCS:DBBCB15}, a proof of solvency for Bitcoin exchanges, which
+we extend in order to allow, on the one hand, users or enterprises to declare
+their assets without disclosing their entire transaction history, and, on the
+other hand, to enable an authority identify tax evasion.

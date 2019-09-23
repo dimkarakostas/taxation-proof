@@ -1,7 +1,15 @@
 \paragraph{Related work.}\label{sec:related}
 
-Our work is closer to the proof of solvency line of work. The first proof of
-solvency scheme for Bitcoin exchanges, proposed by
+To the best of our knowledge, our work is the first to discuss taxation for
+decentralized blockchain systems, as well as the freezing of assets as a
+mechanism to enforce users to declare their assets. A holistic approach
+regarding auditable ledgers is zkLedger by Narula
+\etal~\cite{EPRINT:NarVasVir18}. The taxable ledger of
+Section~\ref{sec:taxchain} defines a ledger which by design enables audits and
+taxation, although our approach is much simpler than zkLedger regarding the
+changes needed in existing designs in order to accommodate taxation.  Our
+second solution builds upon and extends existing research on proofs of
+solvency. The first such scheme for Bitcoin exchanges, proposed by
 Maxwell~\cite{wilcox2014proving}, leaks the total amount of both assets and
 liabilities of the exchange. More importantly, it enables an attack that allows
 the exchange to hide assets, as detailed by Doerner \etal in
@@ -10,15 +18,10 @@ system that allows exchanges to prove properties about their holdings.
 Provisions, by Dagher \etal~\cite{CCS:DBBCB15}, is also a proof of solvency
 mechanism for Bitcoin exchanges based on Sigma protocols, which allows
 exchanges to prove solvency in zero-knowledge, \ie without the need to reveal
-the addresses or the amount of assets that it controls.  Similarly, Agrawal
+the addresses or the amount of assets that it controls. Similarly, Agrawal
 \etal~\cite{C:AgrGanMoh18} describe a proof of solvency using SNARKS, achieving
-better performance compared to Provisions although assuming a trusted setup.
-This work enables proof of solvency for not only pay-to-public-key but also
+better performance compared to Provisions although assuming a trusted setup;
+this work enables proof of solvency for not only pay-to-public-key but also
 pay-to-public-key-hash addresses, which is the most common type of addresses.
-Our work describes an extension to Provisions, although it also applies to
-Agrawal \etal Finally, a holistic approach regarding auditable ledgers was
-taken in the design of zkLedger by Narula \etal~\cite{EPRINT:NarVasVir18}. The
-taxable ledger of Section~\ref{sec:taxchain} defines a ledger which by design
-enables audits and taxation, although our approach is much simpler than
-zkLedger regarding the changes needed in existing designs in order to
-accommodate taxation.
+The mechanism of Section~\ref{sec:provisions-extension} is an extension to
+Provisions which also applies to Agrawal \etal

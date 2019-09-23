@@ -1,21 +1,22 @@
 \section{A Taxation Extension for Provisions}\label{sec:provisions-extension}
 
-We now build a taxation mechanism for cryptocurrency enterprises, \eg
-exchanges, by extending Provisions~\cite{CCS:DBBCB15}. We remind that a user
-should be able to identify whether the assets they receive from an enterprise
-$\exchange$ have been properly taxed. This is achieved via a taxation proof,
-which a user can request \emph{after} they receive the assets, and $\exchange$
-has committed to owning them.  If $\exchange$ fails to provide such proof, then
-the user can safely assume that $\exchange$ evaded taxation.
+We now build a taxation mechanism for existing cryptocurrency systems which is
+based on Provisions~\cite{CCS:DBBCB15}. We remind that a user should be able to
+identify whether the assets they receive from a sender $\exchange$ have been
+properly taxed. This is achieved via a taxation proof which a user can request
+\emph{after} they receive the assets, \ie after $\exchange$ has committed to owning
+them. If $\exchange$ fails to provide such proof, then the user can safely
+assume that $\exchange$ evaded taxation.
 
 Due to the limitations of Section~\ref{sec:taxation}, it is necessary that
 $\taxAuth$ itself observes the evasion. Therefore, we also require that
 $\exchange$ does not know a priori whether the recipient of the funds will
-request a taxation proof.  Next, we assume that $\taxAuth$ covertly interacts
-with $\exchange$ and requests taxation proofs. If, for such transaction, a tax
-evading address is used, $\taxAuth$ can identify the tax evasion. We also note
-that if many users identify tax evasion, although unable to (technically) prove
-the fact, they can put pressure on enterprises to comply with taxation.
+request a taxation proof. Next, we assume that $\taxAuth$ covertly interacts
+with $\exchange$ and requests taxation proofs. If $\exchange$ fails to prove
+taxation for one of these interactions, $\taxAuth$ identifies the tax evasion.
+In the case of enterprises, we also note that if many users identify tax
+evasion of an enterprise $\exchange$, although unable to (technically) prove
+it, they can put pressure on $\exchange$ to comply with taxation.
 
 % Next, we give a brief overview of the Provisions scheme, importantly the
 % \emph{proof of assets} which is of interest in our work. Our scheme comprises
@@ -26,11 +27,11 @@ the fact, they can put pressure on enterprises to comply with taxation.
 
 \paragraph{Overview of Provisions.}\label{subsec:provisions-overview}
 
-Provisions is a \emph{privacy-preserving} auditing
-mechanism for Bitcoin exchanges. Using Provisions a user can verify that a
-(cooperating) Bitcoin exchange is solvent, \ie possesses enough assets to cover
-the liabilities towards its users. In order to achieve this, Provisions defines
-three protocols:
+Provisions is a \emph{privacy-preserving} auditing mechanism for Bitcoin
+exchanges. Using Provisions a party can verify that a (cooperating) Bitcoin
+exchange is solvent, \ie possesses enough assets to cover the liabilities
+towards its users. In order to achieve this, Provisions defines three
+protocols:
 \begin{inparaenum}[i)]
     \item proof of assets,
     \item proof of liabilities, and
@@ -54,8 +55,8 @@ considers the following:
     \item $b_i = g^{\balance(y_i)}$: a commitment to the balance of $y_i$.
 \end{itemize}
 
-The exchange publishes the Pedersen commitments for each $s_i, s_i \cdot
-\balance(y_i)$:
+The exchange publishes the Pedersen commitments for each $s_i \cdot
+\balance(y_i), s_i$:
 \begin{align}
     p_i = b_i^{s_i} \cdot h^{v_i} = g^{\balance(y_i) \cdot s_i} \cdot h^{v_i} \label{eq:balance-commit} \\
     l_i = y_i^{s_i}h^{t_i} \label{eq:ownership-commit} \\
@@ -76,11 +77,11 @@ The exchange proves knowledge of values $s_i, v_i, t_i, \hat{x}_i$ for every $i
 % The first part of our mechanism is executed between $\exchange$ and $\taxAuth$.
 First, $\taxAuth$ requests the total amount of assets that $\exchange$
 controls, \ie the value $\assets$, to verify that $\exchange$'s
-commitments correspond to $\assets$. We observe that:
+commitments correspond to $\assets$. We observe that
 \begin{align}
     Z_\assets = \prod_{i = 1}^n p_i = g^{\assets} \cdot h^v \label{eq:assets}
 \end{align}
-for $v = {\sum_{i = 1}^n v_i}$, is a (publicly computable) Pedersen
+where $v = {\sum_{i = 1}^n v_i}$, is a (publicly computable) Pedersen
 commitment to the exchange's assets. Given that $\taxAuth$ knows $\assets$, the
 exchange needs only to prove knowledge of a value $v$, such that condition
 (\ref{eq:assets}) is satisfied. This is achieved via a standard Schnorr
@@ -137,8 +138,8 @@ to the user:
 \begin{inparaenum}[i)]
     \item for some $i \in [1, n]$, the public key $y_i$ (which is published as
         part of the Provisions scheme) corresponds to the address from which
-        the user receives their assets;
-    \item corresponding bit for $y_i$ in the commitment
+        the user receives their assets, and
+    \item the corresponding bit $s_i$ for $y_i$ in the commitment statement
         (\ref{eq:ownership-commit}) is $s_i = 1$.
 \end{inparaenum}
 The first condition can be easily proven by providing the user with an index

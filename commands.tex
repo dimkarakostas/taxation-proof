@@ -8,11 +8,10 @@
 \newcommand{\env}{\mc{Z}}
 \newcommand{\ledger}{\mc{L}}
 
-\newcommand{\party}{\mc{V}}
-\newcommand{\partyset}{\mathbb{V}}
 \newcommand{\exchange}{\mc{E}}
 \newcommand{\taxAuth}{\mc{T}}
-\newcommand{\user}{\mc{V}}
+\newcommand{\user}{\mc{U}}
+\newcommand{\partyset}{\mathbb{U}}
 
 \newcommand{\assets}{\mathsf{Assets}}
 
@@ -58,7 +57,7 @@
 \newcommand{\sigscheme}{\langle \algokeygen, \algosign, \algoverify \rangle}
 \newcommand{\verifykey}{vk}
 \newcommand{\signkey}{sk}
-\newcommand{\keypair}{(sk, vk)}
+\newcommand{\keypair}[1][]{(sk_{#1}, vk_{#1})}
 \newcommand{\sig}{\sigma}
 
 \newcommand{\taxBtc}{\mathsf{BTC}^{t}}

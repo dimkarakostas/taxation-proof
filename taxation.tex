@@ -61,26 +61,26 @@
 \title{Short Paper: On Cryptocurrency Taxation}
 
 \ifsubmission
-\ifanon
-\author{Anonymous}
-\institute{}
+    \ifanon
+        \author{Anonymous}
+        \institute{}
+    \else
+        \author{
+            Dimitris Karakostas\inst{1, 2}
+            \and Aggelos Kiayias\inst{1, 2}
+        }
+        \institute{
+            University of Edinburgh \and IOHK\\
+            \email{dimitris.karakostas@ed.ac.uk},
+            \email{akiayias@inf.ed.ac.uk}
+        }
+    \fi
+    \date{}
 \else
-\author{
-    Dimitris Karakostas\inst{1, 2}
-    \and Aggelos Kiayias\inst{1, 2}
-}
-\institute{
-    University of Edinburgh \and IOHK\\
-    \email{dimitris.karakostas@ed.ac.uk},
-    \email{akiayias@inf.ed.ac.uk}
-}
-\fi
-\date{}
-\else
-\author{
-    Dimitris Karakostas \\ University of Edinburgh and IOHK \\ dimitris.karakostas@ed.ac.uk
-    \and Aggelos Kiayias \\ University of Edinburgh and IOHK \\ akiayias@inf.ed.ac.uk
-}
+    \author{
+        Dimitris Karakostas \\ University of Edinburgh and IOHK \\ dimitris.karakostas@ed.ac.uk
+        \and Aggelos Kiayias \\ University of Edinburgh and IOHK \\ akiayias@inf.ed.ac.uk
+    }
 \fi
 
 \begin{document}
@@ -102,8 +102,8 @@
 \input{sections/provisions_extension}
 \input{sections/future}
 
-\ifsubmission
 \def\doi#1{\url{https://doi.org/#1}}
+\ifsubmission
 \bibliographystyle{splncs04}
 \else
 \bibliographystyle{plain}

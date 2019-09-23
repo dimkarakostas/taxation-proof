@@ -1,36 +1,36 @@
 \section{Properties and Limitations of Cryptocurrency Taxation}\label{sec:taxation}
 
-Our goal is to design a taxation mechanism which retains as much privacy as
-possible. A basic requirement is that the user $\user$ declares its assets to
-the taxation authority $\taxAuth$.  Specifically, in every cryptocurrency
-system, a user $\user$ manages their assets via \emph{addresses}. Each address
-$\address$ is associated with a key pair $\keypair$, such that the private key
-$\signkey$ is used to claim ownership of the assets, \eg by signing special
-messages; in Bitcoin, as well as most cryptocurrency systems, $\address =
+Our goal is to design a mechanism which prevents tax evasion while retaining as
+much privacy as possible. A basic requirement is that the user $\user$ declares
+its assets to the taxation authority $\taxAuth$.  Specifically, in every
+cryptocurrency system, a user $\user$ manages their assets via
+\emph{addresses}. Each address $\address$ is associated with a key pair
+$\keypair$, such that the private key $\signkey$ is used to claim ownership of
+the assets, \eg by signing special messages; typically $\address =
 \mathsf{H}(\verifykey)$ for some hash function $\mathsf{H}$. Assuming
 $[\address_1, \dots, \address_n]$ is the list of all addresses that $\user$
-controls, the total amount of assets that it owns is $\assets = \sum_{i=1}^n
-\balance(\address_i)$, where $\balance(\address)$ is the (publicly available)
-amount of assets controlled by $\address$.  Ideally, this information, \ie
-$\assets$, is the only information that is leaked to $\taxAuth$, while ensuring
-the user does not ``hide'' any assets.
+controls, the total amount of assets that $\user$ owns is $\assets =
+\sum_{i=1}^n \balance(\address_i)$, where $\balance(\address)$ is the (publicly
+available) amount of assets controlled by the address $\address$.  Ideally,
+$\assets$ is the only information that is leaked to $\taxAuth$ by the taxation
+mechanism, while ensuring that the user cannot hide any assets.
 
 \paragraph{Limitations.}\label{subsec:limitations}
 
 We showcase the limitations of current systems with a telling example.  Assume
 that Alice tax evades, \ie creates a secret, undeclared address $\address$ and
-controls some assets $\theta$ in it. As long as $\address$ is kept hidden, \ie
-Alice does not use it, it is impossible for any party to identify or prove that
+controls some assets $\theta$ in it. Given the pseudonymity (or anonymity) of blockchain systems, as long as $\address$ is kept hidden, \ie
+Alice does not use it, it is impossible for anyone to identify or prove that
 Alice owns $\address$ and, consequently, $\theta$.
 Now assume that, in the future, Alice issues a transaction $\tau$ which
 sends $\theta$ assets from $\address$ to Bob. If Bob suspects that Alice evaded
-taxation for the $\theta$ assets, they might want to report them to the
+taxation for these $\theta$ assets, they might want to report them to the
 taxation authority $\taxAuth$ for inspection, \ie they would form a complaint
-that Alice owns $\address$ and tax evades via it.
+that Alice owns $\address$ and evades taxation for it.
 When $\taxAuth$ receives Bob's complaint, it faces a problem. Even if
 $\taxAuth$ has proof that Alice did not declare $\address$ for taxation, it
-further needs proof that $\address$ is in fact controlled by Alice, \ie a proof
-that Alice knows the private key that pertains to $\address$. Without such
+further needs proof that $\address$ is controlled by Alice, \ie a proof
+that Alice knows the private key associated with $\address$. Without such
 proof, it would be feasible for Bob to lie about Alice owning $\address$. In
 other words, $\taxAuth$ needs to distinguish between two scenarios:
 \begin{inparaenum}[i)]
@@ -42,46 +42,45 @@ controlled by Alice. However, due to the pseudonymity of cryptocurrency
 systems, the transaction $\tau$ is not sufficient to prove this fact. Instead,
 Bob needs a proof which can only be supplied by Alice, \eg a signature from
 Alice which acknowledges $\tau$ or $\address$. However, if Alice tax evades via
-$\address$, it is safe to assume that they would not create such proof, which
-would effectively incriminate themselves.
+$\address$, it is safe to assume that they would not create such proof
+and incriminate themselves.
 
 \paragraph{Desiderata.}\label{subsec:desiderata}
 
-The core requirement of a taxation mechanism is to enforce taxpayers to declare
-their assets, \ie to prohibit tax evasion.  However, it is important that we
+The core requirement of a taxation mechanism is to compel taxpayers to declare
+their assets, \ie to prohibit tax evasion. However, it is important that we
 retain as many good features of existing cryptocurrency systems as possible.
 One such core feature is transaction privacy. Bitcoin-like ledgers enhance
 privacy via the pseudonymous nature of addresses, while designs like
-Zerocash~\cite{SP:BCGGMT14} utilize zero-knowledge to achieve full anonymity of
-transactions, \ie hiding the sender, recipient, and amount of each individual
-transaction. Our aim is to retain at least Bitcoin levels of privacy by
-minimizing the information which is leaked during the taxation process.
+Zerocash~\cite{SP:BCGGMT14} utilize zero-knowledge schemes to achieve full
+anonymity of transactions, \ie hiding the sender, recipient, and amount of each
+individual transaction. Our aim is to retain at least Bitcoin levels of privacy
+by minimizing the information which is leaked during the taxation process.
 
-Another important aspect is the performance of a taxation mechanism.  A
+Another important aspect is the performance of a taxation mechanism. A
 fundamental ingredient of cryptocurrency systems is the seamless transaction
-experience, thus it is important to allow users to transact at all times, while
-also avoiding to introduce significant strain to the system during, \eg, the
-taxation period. Finally, any mechanism should aim to minimize the amount of
-(additional) data which are published to the ledger, since the storage cost in
-distributed ledgers is a core measure of efficiency.
+experience. Thus, it is important to allow users to transact at all times,
+while also avoiding to introduce significant strain to the system during
+taxation. Finally, our mechanisms aim to minimize the amount of (additional)
+data which are published to the ledger, since storage in distributed ledgers
+costs significantly.
 
 In conclusion, the desiderata of a taxation mechanism are as follows:
 \begin{itemize}
     \item \textbf{Tax evasion prevention}: tax evasion, \ie failure of a user
         $\user$ to declare the amount of assets they own, should be either
         detectable by $\taxAuth$ or prohibited by the taxation mechanism.
-    \item \textbf{High level of privacy}: the tax authority $\taxAuth$ should
-        at most learn the total amount of assets owned per user at the end of a
-        tax year; this information should be leaked only to $\taxAuth$ and no
-        additional information should be leaked to any other party, apart from
-        the information already leaked by the ledger.
+    \item \textbf{High level of privacy}: the taxation authority $\taxAuth$
+        should at most learn the total amount of assets owned by each taxpayer
+        at the end of a fiscal year; this information should be leaked only to
+        $\taxAuth$ and no additional information should be leaked to any other
+        party, apart from the information already leaked by the ledger.
     \item \textbf{Unobstructed operation}: the introduction of a taxation
-        mechanism should not introduce any time period over which the tax
-        compliant users are unable to use their assets.
+        mechanism should not result in any period over which the tax compliant
+        users are unable to transact.
     \item \textbf{Low performance overhead}: the taxation mechanism should not
-        introduce a major performance overhead, in terms of computation from
-        the users and $\taxAuth$ and storage requirements on the ledger or
-        locally.
+        introduce a major performance overhead, in terms of computation and
+        storage requirements from the users and the taxation authority.
     \item \textbf{Balanced load}: the computation and storage overhead of
         taxation should be spread over a period of time, rather than
         result in computation spikes.
