@@ -72,14 +72,14 @@ false, fraudulent, or missing reports:
 % This might introduce additional costs in the log keeping that $\taxAuth$
 % needs to do.
 
-\paragraph{A taxable Bitcoin.}
+\subsubsection{A taxable Bitcoin.}
 
 We showcase our design as a taxable variation of Bitcoin which we denote
 $\taxBtc$. $\taxBtc$ is initially parameterized by the public key of the
 taxation authority $\keypair[\taxAuth]$, which is part of the ledger's genesis
 block.  $\taxAuth$ can update its public key by simply signing a new key
 $\verifykey_\taxAuth'$ with $\signkey_\taxAuth$ and publishing it on the
-ledger.  We assume that a taxation period lasts $52560$ blocks, \ie roughly $1$
+ledger. A taxation period lasts $52560$ blocks, \ie roughly $1$
 calendar year, so block $52560$ and its multiples are ``taxation'' blocks.
 When a taxation block is issued, all $\taxBtc$ controlled by \emph{non-certified
 taxation} addresses are frozen.
