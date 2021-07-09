@@ -1,32 +1,20 @@
-\newcommand{\eat}[1]{}
 \newcommand{\comment}[1]{{\color{red} \{{#1}\}}}
 
 \newcommand{\mc}{\mathcal}
 
 \newcommand{\secparam}{\kappa}
-\newcommand{\adversary}{\mc{A}}
-\newcommand{\env}{\mc{Z}}
-\newcommand{\ledger}{\mc{L}}
 
 \newcommand{\exchange}{\mc{E}}
 \newcommand{\taxAuth}{\mc{T}}
 \newcommand{\user}{\mc{U}}
-\newcommand{\partyset}{\mathbb{U}}
 
-\newcommand{\assets}{\mathsf{Assets}}
+\newcommand{\asset}{\theta}
+\newcommand{\assets}{\Theta}
 
 \newcommand{\taxationProto}{\mc{P}_{taxAmount}}
 \newcommand{\taxationAddressProto}{\mc{P}_{taxAddress}}
-\newcommand{\rewardContract}{\mc{C}_{Reward}}
-\newcommand{\transcript}{\tau}
-\newcommand{\reward}{r}
 \newcommand{\address}{\alpha}
-\newcommand{\balance}{\text{bal}}
-
-\newcommand{\msg}[2]{%
-\ifthenelse{\isempty{#1}}{\ensuremath{(#2)}}{%
-\ifthenelse{\isempty{#2}}{\ensuremath{(\textsc{#1})}}{%
-\ensuremath{(\textsc{#1}, #2)}}}}
+\newcommand{\balance}{\mathsf{bal}}
 
 \newcommand{\eg}{e.g. }
 \newcommand{\ie}{i.e. }
@@ -34,37 +22,15 @@
 \newcommand{\etc}{\textit{etc. }}
 \newcommand{\etal}{\textit{et al. }}
 
-\newcommand{\chain}{C}
-\newcommand{\queryamount}{q}
-\newcommand{\difficulty}{p}
-\newcommand{\persistenceParam}{k}
-\newcommand{\livenessParam}{u}
-\newcommand{\miningpower}{\mu}
-\newcommand{\parties}{n}
-\newcommand{\partiesAdv}{t}
-\newcommand{\emptychain}{\epsilon}
-\newcommand{\chainset}{\mathbb{C}}
-\newcommand{\ruleset}{\mathbb{R}}
-\newcommand{\block}{B}
 \newcommand{\transaction}{\tau}
-\newcommand{\networkParam}{\gamma}
 
-\newcommand{\algohash}{\mathsf{H}}
+\newcommand{\hash}{\mathsf{H}}
 \newcommand{\algokeygen}{\mathsf{KeyGen}}
 \newcommand{\algoverify}{\mathsf{Verify} }
 \newcommand{\algosign}{\mathsf{Sign}}
-\newcommand{\eufcma}{\ensuremath{\textsf{EUF-CMA}}}
-\newcommand{\sigscheme}{\langle \algokeygen, \algosign, \algoverify \rangle}
 \newcommand{\verifykey}{vk}
 \newcommand{\signkey}{sk}
 \newcommand{\keypair}[1][]{(sk_{#1}, vk_{#1})}
 \newcommand{\sig}{\sigma}
 
 \newcommand{\taxBtc}{\mathsf{BTC}^{t}}
-
-\algnewcommand\algorithmicswitch{\textbf{switch}}
-\algnewcommand\algorithmiccase{\textbf{case}}
-\algdef{SE}[SWITCH]{Switch}{EndSwitch}[1]{\algorithmicswitch\ #1\ \algorithmicdo}{\algorithmicend\ \algorithmicswitch}%
-\algdef{SE}[CASE]{Case}{EndCase}[1]{\algorithmiccase\ #1}{\algorithmicend\ \algorithmiccase}%
-\algtext*{EndSwitch}%
-\algtext*{EndCase}%
