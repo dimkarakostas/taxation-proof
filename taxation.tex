@@ -1,10 +1,6 @@
-\newif\ifsubmission
 \newif\ifanon
-
 \anontrue
-\submissiontrue
 
-\ifsubmission
 \documentclass[runningheads]{llncs}
 \usepackage[utf8]{inputenc}
 
@@ -19,30 +15,6 @@
 
 \renewcommand\labelitemi{\normalfont\bfseries $\bullet$}
 \renewcommand\labelitemii{\normalfont\bfseries $-$}
-
-\else
-
-\documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-
-\usepackage{geometry}
-\geometry{
-    a4paper,
-    total={150mm,247mm},
-    left=25mm,
-    right=25mm,
-}
-
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem{definition}{Definition}
-\newtheorem{proposition}{Proposition}
-
-\usepackage[hidelinks, bookmarksopen=true]{hyperref}
-
-\fi
 
 \usepackage{mdframed}
 
@@ -60,40 +32,27 @@
 
 \title{Short Paper: On Cryptocurrency Taxation}
 
-\ifsubmission
-    \ifanon
-        \author{Anonymous}
-        \institute{}
-    \else
-        \author{
-            Dimitris Karakostas\inst{1, 2}
-            \and Aggelos Kiayias\inst{1, 2}
-        }
-        \institute{
-            University of Edinburgh \and IOHK\\
-            \email{dimitris.karakostas@ed.ac.uk},
-            \email{akiayias@inf.ed.ac.uk}
-        }
-    \fi
-    \date{}
+\ifanon
+    \author{Anonymous}
+    \institute{}
 \else
     \author{
-        Dimitris Karakostas \\ University of Edinburgh and IOHK \\ dimitris.karakostas@ed.ac.uk
-        \and Aggelos Kiayias \\ University of Edinburgh and IOHK \\ akiayias@inf.ed.ac.uk
+        Dimitris Karakostas\inst{1, 2}
+        \and Aggelos Kiayias\inst{1, 2}
+    }
+    \institute{
+        University of Edinburgh \and IOHK\\
+        \email{dimitris.karakostas@ed.ac.uk},
+        \email{akiayias@inf.ed.ac.uk}
     }
 \fi
+\date{}
 
 \begin{document}
 
 \maketitle
 
 \input{sections/abstract}
-
-\ifsubmission \else
-\newpage
-\tableofcontents
-\newpage
-\fi
 
 \input{sections/introduction}
 \input{sections/related}
@@ -103,12 +62,8 @@
 \input{sections/future}
 
 \def\doi#1{\url{https://doi.org/#1}}
-\ifsubmission
 \bibliographystyle{splncs04}
-\else
-\bibliographystyle{plain}
-\fi
-\bibliography{bibliography/additional,bibliography/cryptobib/crypto}
+\bibliography{bibliography/additional,bibliography/cryptobib/abbrev0,bibliography/cryptobib/crypto_crossref}
 
 % \appendix
 % \input{sections/provisions}
