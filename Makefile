@@ -1,4 +1,7 @@
-main.pdf: *.tex sections/*.tex
+ALL: *.tex sections/*.tex
+	pdflatex taxation.tex
+	bibtex taxation
+	pdflatex taxation.tex
 	pdflatex taxation.tex
 
 bib: bibliography/*.bib
