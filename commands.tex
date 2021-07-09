@@ -35,3 +35,26 @@
 
 \newcommand{\ledger}{\mc{L}}
 \newcommand{\taxBtc}{\ledger^{t}}
+
+
+\newcommand{\mybox}[5]{
+    \begin{figure*}[htpb]
+        \centering
+    \begin{tikzpicture}
+        \node[anchor=text,text width=2*\columnwidth-0.5cm, draw, rounded corners, line width=1pt, fill=#3, inner sep=5mm] (big) {\\#4};
+        \node[draw, rounded corners, line width=.5pt, fill=#2, anchor=west, xshift=5mm] (small) at (big.north west) {#1};
+    \end{tikzpicture}
+    \caption{#5}
+    \end{figure*}
+}
+
+\newcommand{\myhalfbox}[5]{
+    \begin{figure}[htpb]
+        \centering
+    \begin{tikzpicture}
+        \node[anchor=text,text width=\columnwidth-1.2cm, draw, rounded corners, line width=1pt, fill=#3, inner sep=5mm, align=justify] (big) {\\#4};
+        \node[draw, rounded corners, line width=.5pt, fill=#2, anchor=west, xshift=5mm] (small) at (big.north west) {#1};
+    \end{tikzpicture}
+    \caption{#5}
+    \end{figure}
+}

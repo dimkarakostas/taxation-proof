@@ -70,19 +70,12 @@ that this condition is satisfied. This is done via the Schnorr
 protocol~\cite{C:Schnorr89} of Figure~\ref{fig:taxation_auth_proto}, which
 guarantees privacy as described in Lemma~\ref{thm:tax-auth-proto}.
 
-\begin{figure}[h]
-\begin{mdframed}
+\myhalfbox{Asset Taxation Protocol $\taxationProto$}{white!40}{white!10}{
+    Public data: $g, h, Z_\assets = \prod_{i = 1}^n p_i$
 
-\begin{center}
-    \textbf{Asset Taxation Protocol} $\taxationProto$
-\end{center}
+    Verifier's input from prover: $\assets$
 
-    \begin{itemize}
-        \item Public data: $g, h, Z_\assets = \prod_{i = 1}^n p_i$
-        \item Verifier's input from prover: $\assets$
-        \item Prover's input: $v = \sum_{i = 1}^n v_i$
-    \end{itemize}
-
+    Prover's input: $v = \sum_{i = 1}^n v_i$
     \begin{enumerate}
         \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
             and sends $\lambda = h^r$ to the verifier ($\taxAuth$).
@@ -90,13 +83,8 @@ guarantees privacy as described in Lemma~\ref{thm:tax-auth-proto}.
         \item The prover responds with $\theta = r + c \cdot v$.
         \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (Z_\assets \cdot g^{-\assets})^c$.
     \end{enumerate}
+}{\label{fig:taxation_auth_proto} Tax-auditing between $\exchange$ (prover) and $\taxAuth$ (verifier).}
 
-\end{mdframed}
-\caption{
-    Tax-auditing between $\exchange$ (prover) and $\taxAuth$ (verifier).
-}
-\label{fig:taxation_auth_proto}
-\end{figure}
 
 \begin{lemma}\label{thm:tax-auth-proto}
     For public values $g, h, Z_\assets$, the protocol $\taxationProto$ is an
@@ -127,19 +115,12 @@ of Figure~\ref{fig:taxation_verification_proto}; as before,
 Lemma~\ref{thm:user-proto} formalizes the necessary level of privacy based on
 the security properties of the Schnorr protocol.
 
-\begin{figure}[h]
-\begin{mdframed}
+\myhalfbox{Address Verification Protocol $\taxationAddressProto$}{white!40}{white!10}{
+    Public data: $h$, $(y_i, l_i)$ for $i \in [1, n]$
 
-\begin{center}
-    \textbf{Address Verification Protocol} $\taxationAddressProto$
-\end{center}
+    Verifier's input from prover: $i$
 
-    \begin{itemize}
-        \item Public data: $h$, $(y_i, l_i)$ for $i \in [1, n]$
-        \item Verifier's input from prover: $i$
-        \item Prover's input: $t_i$
-    \end{itemize}
-
+    Prover's input: $t_i$
     \begin{enumerate}
         \item The prover ($\exchange$) chooses $r \xleftarrow{\$} \mathbb{Z}_q$
             and sends $\lambda = h^r$ to the verifier.
@@ -147,13 +128,7 @@ the security properties of the Schnorr protocol.
         \item The prover responds with $\theta = r + c \cdot t_i$.
         \item The verifier accepts if $h^\theta \stackrel{?}{=} \lambda \cdot (l_i \cdot y_i^{-1})^c$.
     \end{enumerate}
-
-\end{mdframed}
-\caption{
-    Address verification between $\exchange$ (prover) and a user $\user$ (verifier).
-}
-\label{fig:taxation_verification_proto}
-\end{figure}
+}{\label{fig:taxation_verification_proto} Address verification between $\exchange$ (prover) and a user $\user$ (verifier).}
 
 \begin{lemma}\label{thm:user-proto}
     For public values $h$ and $(y_i, l_i)$, the protocol
