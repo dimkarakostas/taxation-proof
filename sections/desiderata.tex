@@ -1,4 +1,4 @@
-\section{Properties and Limitations of Cryptocurrency Taxation}\label{sec:taxation}
+\subsection{Desiderata}\label{sec:taxation}
 
 Our goal is to design a mechanism which helps authorities identify tax evasion
 for assets maintained via a distributed ledger.
@@ -31,14 +31,12 @@ distinguish between two scenarios:
     \item Bob is lying about Alice owning $\address$.
 \end{inparaenum}
 In the first scenario, Bob \emph{does} know that $\address$ is controlled by
-Alice, but the transaction $\tau$ is not sufficient to prove this fact.
+Alice, but $\tau$ is not sufficient to prove it.
 Instead, Bob needs a proof which can only be supplied by Alice, \eg a signature
 from Alice which acknowledges $\tau$ or $\address$. However, if Alice tax
-evades, it is safe to assume that she would not create such proof and
-incriminate herself.
+evades, naturally she would not create such incriminating proof.
 
-\paragraph{Desiderata}\label{subsec:desiderata}
-The core requirement of our mechanism is to help authorities identify tax
+The core goal is to help authorities identify tax
 evasion. However, it is important that we retain as many good features of
 existing ledger systems as possible, such as transaction privacy. Our scheme is
 aimed at pseudonymous, Bitcoin-like levels of privacy, while minimizing the
