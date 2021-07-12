@@ -1,19 +1,16 @@
 \subsection{Desiderata}\label{sec:taxation}
 
-Our goal is to design a mechanism which helps authorities identify tax evasion
-for assets maintained via a distributed ledger.
-
-In such systems, a user $\user$ manages their assets via addresses. Each
-address $\address$ is associated with a key pair $\keypair$, such that the
-private key $\signkey$ is used to claim ownership of the assets, \eg by signing
-special messages; typically $\address = \hash(\verifykey)$ for some hash
-function $\hash$. Each address $\address$ is associated with a (public) balance
-$\balance(\address)$ so, given a list $[\address_1, \dots, \address_n]$ of all
-addresses that $\user$ controls, $\user$'s total assets are $\assets =
-\sum_{i=1}^n \balance(\address_i)$. Our goal will be to retain as much privacy
-as possible, so $\assets$ should be the only information that is leaked to
-$\taxAuth$, without additional de-anonymization data that pertain to specific
-transactions.
+In distributed ledger-based currency systems, a user $\user$ manages their
+assets via addresses. Each address $\address$ is associated with a key pair
+$\keypair$, such that the private key $\signkey$ is used to claim ownership of
+the assets, \eg by signing special messages; typically $\address =
+\hash(\verifykey)$ for some hash function $\hash$. Each address $\address$ is
+associated with a (public) balance $\balance(\address)$ so, given a list
+$[\address_1, \dots, \address_n]$ of all addresses that $\user$ controls,
+$\user$'s total assets are $\assets = \sum_{i=1}^n \balance(\address_i)$. Our
+goal will be to retain as much privacy as possible, so $\assets$ should be the
+only information that is leaked to $\taxAuth$, without
+de-anonymization of individual transaction data.
 
 To showcase the limitations of current systems, consider the following example.
 Assume that Alice tax evades, \ie creates a secret, undeclared address
@@ -36,36 +33,35 @@ Instead, Bob needs a proof which can only be supplied by Alice, \eg a signature
 from Alice which acknowledges $\tau$ or $\address$. However, if Alice tax
 evades, naturally she would not create such incriminating proof.
 
-The core goal is to help authorities identify tax
-evasion. However, it is important that we retain as many good features of
-existing ledger systems as possible, such as transaction privacy. Our scheme is
-aimed at pseudonymous, Bitcoin-like levels of privacy, while minimizing the
-information leaked to the authorities during a taxation investigation.  Another
-important aspect is the mechanism's performance. A fundamental ingredient of
-payment systems is the seamless transaction experience, so it is important to
-allow users to transact at all times, while also avoiding significant strain
-during taxation periods. Finally, our mechanisms aim to minimize the amount of
-(additional) data which are published to the ledger, since storage in
+It is important that we retain as many good features of existing ledger systems
+as possible. The most notable such feature is transaction privacy, thus our
+work considers pseudonymous, Bitcoin-like levels of privacy, and minimizes the
+information leaked to the authorities during a tax auditing. Another important
+aspect is the mechanism's performance. A fundamental ingredient of payment
+systems is the seamless transaction experience, so it is important to allow
+users to transact at all times, while also avoiding significant strain during
+taxation periods. Finally, our mechanisms aim to minimize the amount of
+(additional) published data, since storage in
 distributed ledgers is particularly costly.
 
-In conclusion, the desiderata of a taxation mechanism are as follows:
+In summary, the desiderata of our mechanisms are as follows:
 \begin{itemize}
-    \item \textbf{Tax evasion identification}: Tax evasion, \ie failure of a
-        user $\user$ to declare the amount of assets they own, should be either
-        detectable by a taxation authority $\taxAuth$ with access to the
-        ledger.
-    \item \textbf{High level of privacy}: $\taxAuth$ should --- at most ---
+    \item \emph{Tax gap identification}: Tax evasion, \ie failure of a user
+        $\user$ to declare the amount of assets they own, should be either
+        detectable by a tax authority $\taxAuth$, with access to the
+        ledger, or render the assets unusable.
+    \item \emph{High level of privacy}: $\taxAuth$ should --- at most ---
         learn the total amount of assets owned by each taxpayer at the end of a
         fiscal year; this information should be leaked only to $\taxAuth$ and
         no additional information should be leaked to any other party, apart
         from the information already published on the ledger.
-    \item \textbf{Unobstructed operation}: The introduction of a taxation
+    \item \emph{Unobstructed operation}: The introduction of a taxation
         mechanism should not result in any period during which the --- tax
         compliant --- users are prohibited from transacting.
-    \item \textbf{Low performance overhead}: The taxation mechanism should not
+    \item \emph{Low performance overhead}: The taxation mechanism should not
         introduce a major performance overhead, in terms of computation and
         storage requirements from the users and the taxation authority.
-    \item \textbf{Balanced load}: The computation and storage overhead of
+    \item \emph{Balanced load}: The computation and storage overhead of
         taxation should be spread over a period of time, rather than introduce
         performance spikes.
 \end{itemize}

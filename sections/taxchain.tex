@@ -1,4 +1,4 @@
-\section{Tax Auditable Distributed Ledgers}\label{sec:taxchain}
+\section{Tax Auditable Distributed Ledger}\label{sec:taxchain}
 
 In this section we describe a ledger with a built-in tax auditing mechanism.
 Our design is generic, such that existing ledgers can incorporate it with
@@ -77,7 +77,7 @@ frozen. To transact with assets from a frozen address, a user sends them to a
 certified address, as described above.
 
 Freezing complicates the system in a number of ways. First, the liveness
-property of a transaction (cf.~\cite{EC:GarKiaLeo15}) may be affected. For
+of a transaction~\cite{EC:GarKiaLeo15} may be affected. For
 instance, a transaction which spends from a non-certified address will be
 rejected, if it is created before but published after a tax-auditing block. We
 sidestep this issue by enabling users to use certified addresses before the

@@ -1,56 +1,29 @@
 \section{Introduction}\label{sec:introduction}
 
-Decentralized blockchains face a number of pressing challenges.  Scalability,
-interoperability, and governance are only a few of the concepts that
-researchers have been working on during the past decade, since
-Bitcoin~\cite{nakamoto2008bitcoin} first launched. Nevertheless, although
-immensely interesting, technical issues are not the only challenges that such
-systems face. A common topic of heated discussions around the future of
-decentralized blockchains is \emph{adoption}.  Mainstream adoption has been
-almost ubiquitously hailed as the way for blockchain systems to mature and,
-potentially, appreciate in value. Indeed, as more people build on and use
-decentralized ledgers, it is expected that more research opportunities will
-arise, helping researchers and entrepreneurs alike evolve the blockchain space.
-Eventually, adoption will allow the scientific knowledge and technological
-standards of distributed ledgers to mature faster and better.
+A tax gap~\cite{comission2018taxgaps} is a difference between the reported and
+the real tax revenue, for a given jurisdiction and period of time. Research
+estimated that the tax gap in the USA was $16.4$\% of revenue
+owed~\cite{internal2016federal} between 2008-2010, the total loss throughout
+the EU due to the tax gap to €$151.5$ in 2015~\cite{murphy2018resources}, while
+$\frac{1}{3}$ of taxpayers in the UK under-report their
+earnings~\cite{advani2020does} (albeit half of UK's lost taxes are product of a
+small, wealthy fraction of misbehaving taxpayers). Therefore, reducing the tax
+gaps can significantly enhance the efforts of tax-collecting authorities.
 
-A core element regarding adoption of every new technology, like blockchains, is
-compliance with the existing regulatory frameworks. As early as 2010, questions
-on how, or even if, Bitcoin can be a legal investment product have sparked a
-heated discussion\footnote{One of the first such investigations is available at
-Eric Roberts' webpage:
-\url{https://cs.stanford.edu/people/eroberts/courses/cs181/projects/2010-11/Bitcoins/should-bitcoin-be-legal.html}}.
-However, due to the fact that the legal framework has been trailing the
-technological advancements, established organizations are often hesitant to
-adopt or abstain altogether from using the new blockchain technology\footnote{A
-primary example is the Electronic Frontier Foundation's step back in accepting
-Bitcoin as a donation option in 2011 due to ``complex legal issues'', as
-detailed in the following article:
-\url{https://www.eff.org/deeplinks/2011/06/eff-and-bitcoin}}. It is thus clear
-that, in order for --- decentralized --- blockchains to be widely used, proper
-tools should be developed that allow asset owners and custodians to comply with
-changes in the legal framework while retaining much needed properties, like
-privacy, that the technology offers. Indeed, crypto-assets have drawn a lot of
-attention from tax authorities recently, especially after the surge in
-Bitcoin's price during 2017.  Exchanges, being the primary platforms for
-trading cryptocurrency and shaping the market's prices, have been put on the
-spot by authorities across the globe, \eg the U.S. Securities and Exchange
-Commission, which as of 2018 requires exchanges to register with
-it~\cite{securities2018statement}, and the Australian tax office, which applies
-trading stock rules on exchanges~\cite{tax2019statement}.
+Central bank digital currencies (CBDC) have also come to prominence in recent
+years. In the past decade, distributed ledger-based financial systems, which
+were kick-started with the creation of Bitcoin~\cite{nakamoto2008bitcoin}, were
+accompanied by the increasing digitalization of payments~\cite{bis2011digital}.
+CBDCs are the culmination of these trends, enabling fast, cheap, and safe
+transactions in fiat assets. Crucially though, although still mostly on the
+research stage,\footnote{\url{https://cbdctracker.org} [July 2021]} CBDCs have
+created concerns on citizens regarding transaction
+privacy~\cite{ecb2021cbdcprivacy}.
 
-Our work aims to accelerate the technical discussion needed to incorporate
-taxation in decentralized blockchain systems. We explore the properties and
-limitations of taxation mechanisms, aiming to implement secure taxation while
-maintaining the best level of privacy possible and minimizing the level of
-trust put in the taxation authority. First, we describe a ledger which compels
-taxpayers to tax their crypto-assets in a privacy-preserving manner, our core
-idea being to freeze the assets until they are taxed. Such mechanism can either
-be built in new systems or enforced via a hard fork, \ie small but decisive
-changes in deployed consensus protocols, and offers privacy which is at least
-as good as Bitcoin-like systems. Second, our paper introduces a taxation scheme
-directly applicable on existing systems. Our design is based on
-Provisions~\cite{CCS:DBBCB15}, a proof of solvency for Bitcoin exchanges, which
-we extend in order to allow, on the one hand, users or enterprises to declare
-their assets without disclosing their entire transaction history, and, on the
-other hand, to enable an authority identify tax evasion.
+Our work offers two mechanisms that facilitate tax auditing and the
+identification of tax gaps in distributed ledger-based currency systems. The
+first is a wrapper around a generic distributed ledger, which enables taxpayers
+to declare their assets directly to the authorities, while undeclared assets
+are frozen. The second is a proof mechanism that enables the sender of some
+assets to prove, in a privacy-preserving manner, whether the transferred assets
+have been taxed.
