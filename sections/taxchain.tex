@@ -24,7 +24,7 @@ unfreeze an asset, a taxpayer $\user$ declares it to $\taxAuth$ as follows.
 
 First, $\user$ creates a new key pair $(\signkey_{\user}, \verifykey_{\user})$
 and the corresponding address $\address_{\user}$ and sends $\address_{\user}$
-to $\taxAuth$.  Next, $\taxAuth$ certifies $\address_{\user}$ by issuing the
+to $\taxAuth$ as part of a KYC process.  Next, $\taxAuth$ certifies $\address_{\user}$ by issuing the
 signature $\sig = \algosign(\address_{\user}, \signkey_{\taxAuth})$, which it
 gives to $\user$. The tuple $\address_{\user}^{t} = \langle \address_{\user},
 \sig \rangle$ is the \emph{certified address}, which is used by the user to
@@ -84,7 +84,7 @@ sidestep this issue by enabling users to use certified addresses before the
 freezing period, hence the liveness guarantees of the ledger apply
 unconditionally on certified addresses. Second, it is possible that multiple
 competing tax-auditing blocks are created, \eg multiple blocks which extend the
-$52559$th block. Therefore, $\taxAuth$ needs to pick one and certify it.
+tax-auditing block. Therefore, $\taxAuth$ needs to pick one and certify it.
 Afterwards, this certified block cannot be reverted and acts as a
 ``checkpoint''.
 
