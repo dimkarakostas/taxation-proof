@@ -20,12 +20,6 @@ users. In order to achieve this, Provisions defines three protocols:
     \item proof of liabilities, and
     \item proof of solvency.
 \end{inparaenum}
-% The first protocol commits the exchange --- in a zero-knowledge fashion ---
-% to the total amount of assets it possesses. Similarly, the second protocol
-% commits it to the liabilities towards its clients, such that each client can
-% verify that the exchange has included his/her deposits in the collective
-% proof.  Finally, the proof of solvency proves that the exchange's assets are
-% equal or surpass its liabilities.
 Our work is only concerned in the assets owned by the exchange, thus we focus
 on the proof of assets. All proofs are considered under a group $G$ of prime
 order $q$ with fixed public generators $g, h$. The proof of assets considers
@@ -45,11 +39,6 @@ The exchange publishes the Pedersen commitments~\cite{C:Pedersen91} for each $s_
 \end{align}
 where $v_i, t_i \in \mathbb{Z}_q$ are chosen at random,
 $x_i$ is the private key for $y_i$, and $\hat{x}_i = x_i \cdot s_i$.
-%The exchange proves knowledge of values $s_i, v_i, t_i, \hat{x}_i$ for every $i
-%\in [1, n]$ via a $\Sigma$-protocol, such that conditions
-%(\ref{eq:balance-commit}), (\ref{eq:ownership-commit}) are satisfied.
-% for completeness, the Provisions' proof of assets protocol is included in
-% Appendix~\ref{subsec:provisions-assets-proof}.
 
 \paragraph{Asset Declaration.}\label{subsec:tax-authority-proto}
  $\exchange$ declares the total amount of assets
@@ -132,6 +121,6 @@ Lemma~\ref{thm:user-proto}.
     g^{\balance(y_i)}h^{v_i}$ respectively.
 \end{lemma}
 
-% Finally, both protocols can be turned into non-interactive zero-knowledge
-% (NIZK) proofs of knowledge in the random oracle model by using the
-% Fiat-Shamir transformation~\cite{C:FiaSha86}.
+Finally, both protocols can be turned into non-interactive zero-knowledge
+(NIZK) proofs of knowledge in the random oracle model by using the
+Fiat-Shamir transformation~\cite{C:FiaSha86}.
