@@ -31,7 +31,7 @@ on the proof of assets. All proofs are considered under a group $G$ of prime
 order $q$ with fixed public generators $g, h$. The proof of assets considers
 the following:
 \begin{itemize}
-    \item $\text{\textbf{PK}} = \{y_1, \dots, y_n \}$: the total (anonymity) set of public keys;
+    \item $\text{PK} = \{y_1, \dots, y_n \}$: the total (anonymity) set of public keys;
     \item $s_i$: a bit such that, if the exchange controls $y_i$, \ie if it possesses the private key of $y_i$, then $s_i = 1$, otherwise $s_i = 0$;
     \item $\balance(y_i)$: the amount of assets that the address corresponding to $y_i$ controls;
     \item $\assets = \sum_{i = 1}^n s_i \cdot \balance(y_i)$: the amount of assets that the exchange controls;
