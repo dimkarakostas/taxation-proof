@@ -9,8 +9,8 @@ associated with a (public) balance $\balance(\address)$ so, given a list
 $[\address_1, \dots, \address_n]$ of all addresses that $\user$ controls,
 $\user$'s total assets are $\assets = \sum_{i=1}^n \balance(\address_i)$. Our
 goal will be to retain as much privacy as possible, so $\assets$ should be the
-only information that is leaked to $\taxAuth$, without
-de-anonymization of individual transaction data.
+only information leaked to tax authority $\taxAuth$, without
+de-anonymization of specific transaction data.
 
 To showcase the limitations of current systems, consider the following example.
 Assume that Alice tax evades, \ie creates a secret, undeclared address

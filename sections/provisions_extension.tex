@@ -1,15 +1,18 @@
 \section{A Tax-Auditing Extension for Provisions}\label{sec:provisions-extension}
 
 We now build a tax auditing mechanism for existing ledgers based on
-Provisions~\cite{CCS:DBBCB15}. The goal of this mechanism is to enable all payment recipients to verify whether the assets used by a sender $\exchange$ in a transaction have been
-properly declared to the authority $\taxAuth$. This is achieved in two stages, first with an asset declaration stage that involves $\taxAuth$ and second with a payer address auditing protocol, which is created
-in tandem with the transaction that pays a recipient,
-and after $\exchange$ commits to owning the assets. If $\exchange$ fails to provide such proof, the implication is that $\exchange$ performs tax evasion.
-To build this proof mechanism we rely on Provisions~\cite{CCS:DBBCB15},
-particularly its \emph{proof of assets}. Our scheme comprises of two simple
-protocols, which $\exchange$ runs with the taxation authority and their
-counter-party respectively. As we show, our protocols retain the privacy
-guarantees of Provisions.
+Provisions~\cite{CCS:DBBCB15}. The goal of this mechanism is to enable all
+payment recipients to verify whether the assets used by a sender $\exchange$ in
+a transaction have been properly declared to the authority $\taxAuth$. This is
+achieved in two stages, first with an asset declaration stage that involves
+$\taxAuth$ and second with a payer address auditing protocol, which is created
+in tandem with the transaction that pays a recipient, and after $\exchange$
+commits to owning the assets. If $\exchange$ fails to provide such proof, the
+implication is that $\exchange$ performs tax evasion.  To build this
+mechanism we rely on Provisions~\cite{CCS:DBBCB15}, particularly its
+\emph{proof of assets}. Our scheme comprises of two simple protocols, which
+$\exchange$ runs with the taxation authority and their counter-party
+respectively. As we show, our protocols retain Provisions' privacy guarantees.
 
 Provisions is a privacy-preserving auditing mechanism for Bitcoin exchanges.
 Using Provisions a party can verify that a (cooperating) Bitcoin exchange is
@@ -29,7 +32,7 @@ the following:
     \item $s_i$: a bit such that, if the exchange controls $y_i$, \ie if it possesses the private key of $y_i$, then $s_i = 1$, otherwise $s_i = 0$;
     \item $\balance(y_i)$: the amount of assets that the address corresponding to $y_i$ controls;
     \item $\assets = \sum_{i = 1}^n s_i \cdot \balance(y_i)$: the amount of assets that the exchange controls;
-    \item $b_i = g^{\balance(y_i)}$: a biding (but not hiding) commitment  to the balance of $y_i$.
+    \item $b_i = g^{\balance(y_i)}$: a binding (but not hiding) commitment  to the balance of $y_i$.
 \end{itemize}
 The exchange publishes the Pedersen commitments~\cite{C:Pedersen91} for each $s_i \cdot
 \balance(y_i), s_i$:
@@ -40,7 +43,7 @@ The exchange publishes the Pedersen commitments~\cite{C:Pedersen91} for each $s_
 where $v_i, t_i \in \mathbb{Z}_q$ are chosen at random,
 $x_i$ is the private key for $y_i$, and $\hat{x}_i = x_i \cdot s_i$.
 
-\paragraph{Asset Declaration.}\label{subsec:tax-authority-proto}
+\subsubsection*{Asset Declaration.}\label{subsec:tax-authority-proto}
  $\exchange$ declares the total amount of assets
 it controls, \ie the value $\assets$,
 to  $\taxAuth$ who verifies  that $\exchange$'s commitments
@@ -51,7 +54,7 @@ computable) Pedersen commitment to $\exchange$'s assets. Given that $\taxAuth$
 knows $\assets$, $\exchange$ needs only to prove knowledge of a value $v$, such
 that this condition is satisfied. This is done via the Schnorr
 protocol~\cite{C:Schnorr89} of Figure~\ref{fig:taxation_auth_proto}, which
-guarantees privacy as described in Lemma~\ref{thm:tax-auth-proto}.
+guarantees privacy (cf. Lemma~\ref{thm:tax-auth-proto}).
 
 \myhalfbox{Asset Declaration Protocol $\taxationProto$}{white!40}{white!10}{
     Public data: $g, h, Z_\assets = \prod_{i = 1}^n p_i$
@@ -76,10 +79,10 @@ guarantees privacy as described in Lemma~\ref{thm:tax-auth-proto}.
     $Z_\assets = \prod_{i = 1}^n p_i = g^{\assets} \cdot h^v$ for $i \in [1, n]$.
 \end{lemma}
 
-\paragraph{Payer Address Auditing.}\label{subsec:user-verification-proto}
-The second part of our taxation proof enables the tax auditing of a specific
-address used by a payer $\exchange$ whenever a payment is made to an arbitrary  user $\user$. $\exchange$ will prove two conditions to
-$\user$:
+\subsubsection*{Payer Address Auditing.}\label{subsec:user-verification-proto}
+The second part of our taxation proof enables the auditing of a specific
+address of a payer $\exchange$, when a payment is made to another
+user $\user$. $\exchange$ will prove two conditions to $\user$:
 \begin{inparaenum}[i)]
     \item for some $i \in [1, n]$, the public key $y_i$ (which is published as
         part of the Provisions scheme) corresponds to the address from which
